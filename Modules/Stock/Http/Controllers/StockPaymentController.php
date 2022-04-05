@@ -104,7 +104,6 @@ class StockPaymentController extends Controller
     {
         session()->put('stock_id', $id);
         return Excel::download(new StockPaymentExport, 'Ombor ' .  Stock::find($id)->name .' '. now()->format('d.m.Y: H:i:s') . ' to\'lov.xlsx');
-//        return view('stock::show');
     }
 
     /**

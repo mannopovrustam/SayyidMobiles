@@ -20,11 +20,11 @@ class MarksImport implements ToModel, WithHeadingRow
         if (Brand::where('name', $row['brend'])->get()->count() == 0){ $brand = Brand::create(['name' => $row['brend']]); }
         else{ $brand = Brand::where('name', $row['brend'])->first(); }
 
-        $data = new Mark();
-        $data->type_id = 1;
-        $data->brand_id = $brand->id;
-        $data->name = $row['maxsulot'];
-        $data->version = $row['versiya'];
-        $data->save();
+        Mark::updateOrCreate(['brand_id' => $brand->id, 'name' => $row['maxsulot']],[
+            'type_id' => 1,
+            'brand_id' => $brand->id,
+            'name' => $row['maxsulot'],
+            'version' => $row['versiya'],
+        ]);
     }
 }
