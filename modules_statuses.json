@@ -1,0 +1,10 @@
+{
+    "Brand": true,
+    "Stock": true,
+    "Client": true,
+    "Mark": true,
+    "Product": true,
+    "Invoice": true,
+    "Trade": true,
+    "Currency": true
+}

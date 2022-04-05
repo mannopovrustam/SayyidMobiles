@@ -1,0 +1,194 @@
+<div class="container-fluid" xmlns:wire="http://www.w3.org/1999/xhtml">
+    <div class="card">
+        <div class="card-body">
+            @if($data_id == null)
+                <form action="/converts" method="post" class="needs-validation" novalidate>
+                    @csrf
+                    <input type="hidden" name="data_id" value="">
+                    <input type="hidden" name="stock_id" value="{{ $stock_id }}">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label class="col-form-label-sm" for="currency">Kurs
+                                    @if($summ_from != 0 && $summ_to != 0 && $summ_from != null && $summ_to != null)
+                                        @if($summ_to/$summ_from < 1)
+                                            (1 {{ \Modules\Currency\Entities\Currency::find($currency_to)->currency }})
+                                        @endif
+                                        @if($summ_from/$summ_to < 1)
+                                            (1 {{ \Modules\Currency\Entities\Currency::find($currency_from)->currency }})
+                                        @endif
+                                    @endif
+                                </label>
+                                <input type="text" hidden name="currency" value="
+                                    @if($summ_from != 0 && $summ_to != 0)
+                                @if($summ_to/$summ_from < 1)
+                                {{ \Modules\Currency\Entities\Currency::find($currency_to)->id }}
+                                @endif
+                                @if($summ_from/$summ_to < 1)
+                                {{ \Modules\Currency\Entities\Currency::find($currency_from)->id }}
+                                @endif
+                                @endif">
+                                ">
+                                <input type="text" class="form-control form-control-sm" name="currency_rate" id="validationCustom01"
+                                       placeholder="..." required readonly
+                                       @if($summ_from != 0 && $summ_to != 0)
+                                       @if($summ_to/$summ_from < 1)
+                                       value="{{ round($summ_from/$summ_to, 2) }}"
+                                       @else
+                                       value=" {{ round($summ_to/$summ_from, 2) }}"
+                                    @endif
+                                    @endif
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="mb-3">
+                                <label class="col-form-label-sm" for="validationCustom01">Valyutadan</label>
+                                <select wire:model="currency_from" class="form-control form-control-sm" name="currency_from" id="">
+                                    @foreach(\Modules\Currency\Entities\Currency::all() as $item)
+                                        <option
+                                            @if($data->currency_from == $item->id)
+                                                selected
+                                            @endif
+                                            value="{{ $item->id }}">{{ $item->currency }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="mb-3">
+                                <label class="col-form-label-sm" for="validationCustom01">Valyutaga</label>
+                                <select wire:model="currency_to" class="form-control form-control-sm" name="currency_to" id="">
+                                    @foreach(\Modules\Currency\Entities\Currency::all() as $item)
+                                        <option
+                                            @if($data->currency_to == $item->id)
+                                                selected
+                                            @endif
+                                            value="{{ $item->id }}">{{ $item->currency }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label class="col-form-label-sm" for="con_edit_main_curr">Sotish ({{ \Modules\Currency\Entities\Currency::find($currency_from)->currency }})</label>
+                                <input value="{{$data->main_currency_val}}" wire:model="summ_from" type="text" class="form-control form-control-sm" name="main_currency_val" id="con_edit_main_curr"
+                                       placeholder="..." required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label class="col-form-label-sm" for="con_edit_sec_curr">Olish ({{ \Modules\Currency\Entities\Currency::find($currency_to)->currency }})</label>
+                                <input value="{{$data->second_currency_val}}" wire:model="summ_to" type="text" class="form-control form-control-sm" name="second_currency_val" id="con_edit_sec_curr"
+                                       placeholder="..." required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="col-form-label-sm" for="con_edit_note">Izoh</label>
+                                <input value="{{$data->note}}" type="text" class="form-control form-control-sm" name="note" id="con_edit_note"
+                                       placeholder="..." required>
+                            </div>
+                        </div>
+                        <div class="col-md-1" style="margin-top: 27px">
+                            <div class="mb-3">
+                                <button class="btn btn-primary" type="submit">Saqlash</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            @endif
+{{--            @if($data_id != null)--}}
+{{--                <form action="/converts/{{ $data_id->id }}" method="post" class="needs-validation" novalidate>--}}
+{{--                    @csrf--}}
+{{--                    <input type="hidden" name="data_id" value="">--}}
+{{--                    <input type="hidden" name="stock_id" value="{{ $stock_id }}">--}}
+{{--                    <div class="row">--}}
+{{--                        <div class="col-md-2">--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="col-form-label-sm" for="currency">Kurs--}}
+{{--                                    @if($summ_from != 0 && $summ_to != 0)--}}
+{{--                                        @if($summ_to/$summ_from < 1)--}}
+{{--                                            (1{{ \Modules\Currency\Entities\Currency::find($currency_to)->currency }})--}}
+{{--                                        @endif--}}
+{{--                                        @if($summ_from/$summ_to < 1)--}}
+{{--                                            (1{{ \Modules\Currency\Entities\Currency::find($currency_from)->currency }})--}}
+{{--                                        @endif--}}
+{{--                                    @endif--}}
+{{--                                </label>--}}
+{{--                                <input type="text" hidden name="currency" value="--}}
+{{--                                    @if($summ_from != 0 && $summ_to != 0)--}}
+{{--                                @if($summ_to/$summ_from < 1)--}}
+{{--                                {{ \Modules\Currency\Entities\Currency::find($currency_to)->id }}--}}
+{{--                                @endif--}}
+{{--                                @if($summ_from/$summ_to < 1)--}}
+{{--                                {{ \Modules\Currency\Entities\Currency::find($currency_from)->id }}--}}
+{{--                                @endif--}}
+{{--                                @endif--}}
+{{--                                    ">--}}
+{{--                                <input type="text" class="form-control form-control-sm" name="summ" id="validationCustom01"--}}
+{{--                                       placeholder="{{ $data_id->summ }}" required readonly--}}
+{{--                                       @if($summ_from != 0 && $summ_to != 0)--}}
+{{--                                       @if($summ_to/$summ_from < 1)--}}
+{{--                                       value="{{ round(($summ_from/$summ_to), 2) }}"--}}
+{{--                                       @else--}}
+{{--                                       value=" {{ round(($summ_to/$summ_from), 2) }}"--}}
+{{--                                    @endif--}}
+{{--                                    @endif>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-1">--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="col-form-label-sm" for="validationCustom01">Valyutadan</label>--}}
+{{--                                <select wire:model="currency_from" class="form-control form-control-sm" name="currency_from" id="">--}}
+{{--                                    @foreach(\Modules\Currency\Entities\Currency::all() as $item)--}}
+{{--                                        <option value="{{ $item->id }}" @if($data_id->currency_from == $item->id) selected @endif>{{ $item->currency }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-1">--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="col-form-label-sm" for="validationCustom01">Valyutaga</label>--}}
+{{--                                <select wire:model="currency_to" class="form-control form-control-sm" name="currency_to" id="">--}}
+{{--                                    @foreach(\Modules\Currency\Entities\Currency::all() as $item)--}}
+{{--                                        <option value="{{ $item->id }}" @if($data_id->currency_to == $item->id) selected @endif>{{ $item->currency }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="col-md-2">--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="col-form-label-sm" for="validationCustom01">Sotish ({{ \Modules\Currency\Entities\Currency::find($data_id->currency_from)->currency }})</label>--}}
+{{--                                <input wire:model="summ_from" type="text" class="form-control form-control-sm" name="main_currency_val" id="validationCustom01"--}}
+{{--                                       placeholder="{{ $data_id->main_currency_val }}" value="{{ $data_id->main_currency_val }}" required>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-2">--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="col-form-label-sm" for="validationCustom01">Olish ({{ \Modules\Currency\Entities\Currency::find($data_id->currency_to)->currency }})</label>--}}
+{{--                                <input wire:model="summ_to" type="text" class="form-control form-control-sm" name="second_currency_val" id="validationCustom01"--}}
+{{--                                       placeholder="{{ $data_id->second_currency_val }}" value="{{ $data_id->second_currency_val }}" required>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-3">--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <label class="col-form-label-sm" for="validationCustom01">Izoh</label>--}}
+{{--                                <input type="text" class="form-control form-control-sm" name="note" id="validationCustom01"--}}
+{{--                                       placeholder="..." value="{{ $data_id->note }}" required>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-md-1" style="margin-top: 27px">--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <button class="btn btn-primary" type="submit">Uzgartirish</button>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </form>--}}
+{{--            @endif--}}
+        </div>
+    </di
+
+        v>
+</div>

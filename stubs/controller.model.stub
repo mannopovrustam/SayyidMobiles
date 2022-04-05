@@ -1,0 +1,51 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Support\Arr;
+use {{ namespacedRequests }}
+
+class {{ class }} extends Controller
+{
+    public function index()
+    {
+        //
+    }
+
+    public function create()
+    {
+        $data = new {{ model }}();
+        return view(substr(\Request::segment(1), 0, -1).'.create', compact('data'))
+    }
+
+    public function store({{ storeRequest }} $request)
+    {
+        $values = Arr::except($request->all(), ['_token', 'photo', 'data_id', 'photos']);
+        $data = {{ model }}::updateOrCreate(['id' => $request->get('data_id');],$values);
+        return back()
+    }
+
+    public function show({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    public function edit({{ model }} ${{ modelVariable }})
+    {
+        $data = ${{ modelVariable }};
+        return view(substr(\Request::segment(1), 0, -1) . '.create', compact('data'));
+    }
+
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    public function destroy({{ model }} ${{ modelVariable }})
+    {
+        ${{ modelVariable }}->delete();
+        return back();
+    }
+}
