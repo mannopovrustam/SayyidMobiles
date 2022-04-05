@@ -2,7 +2,7 @@
 
 namespace Modules\Mark\Http\Controllers;
 
-use App\Imports\MarksImport;
+use Modules\Mark\Imports\MarksImport;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;

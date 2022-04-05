@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports;
+namespace Modules\Mark\Imports;
 
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Modules\Mark\Entities\Brand;
