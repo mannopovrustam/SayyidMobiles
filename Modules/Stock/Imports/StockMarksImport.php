@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Imports;
+namespace Modules\Stock\Imports;
 
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Modules\Mark\Entities\Mark;
-use Modules\Product\Entities\Product;
 use Modules\Stock\Entities\StockMark;
 
 class StockMarksImport implements ToModel, WithHeadingRow
