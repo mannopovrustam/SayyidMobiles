@@ -2,7 +2,7 @@
 
 namespace Modules\Stock\Http\Controllers;
 
-use App\Imports\StockMarksImport;
+use Modules\Stock\Imports\StockMarksImport;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
