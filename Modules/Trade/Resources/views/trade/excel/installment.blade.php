@@ -8,6 +8,7 @@ $second_currency = $stock->second_currency_id;
     <tr>
         <th>Sana</th>
         <th>Mahsulot soni (Jami)</th>
+        <th>Jami summa</th>
         <th>Mijoz</th>
         <th>Chegirma</th>
         <th></th>
@@ -26,6 +27,7 @@ $second_currency = $stock->second_currency_id;
     <tr>
         <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $invoice->date)->format('Y-m-d') }}</td>
         <td>{{ $invoice->products->count() }}</td>
+        <td>{{ array_sum($invoice->products->pluck('cost')->toArray()) }}</td>
         <td>{{ \Modules\Client\Entities\Client::find($invoice->client_id)->name }}</td>
         <td>{{ $invoice->orders->first()->discount }}</td>
         <td></td>
@@ -72,6 +74,39 @@ $second_currency = $stock->second_currency_id;
             <td>
                 {{ $product->imei }}
             </td>
+        </tr>
+    @endforeach
+    </tbody>
+</table>
+
+
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>Oy</th>
+        <th>To'lov</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+    $order_detail = \Modules\Invoice\Entities\OrderDetail::find($invoice->orders->first()->id);
+    $init_price = 0;
+    $date = new \Carbon\Carbon($invoice->date);
+
+    $from = $date->year . '-' . $date->month . '-' . $order_detail->every_days;
+    $addMonth = \Carbon\Carbon::createFromFormat('Y-m-d', $from)->format('Y-m-d H:i:s');
+    $to = $date->addMonths($order_detail->date_agreement_month);
+    $period = \Carbon\CarbonPeriod::create($from, '1 month', $to);
+//    $init_price = ($summ - (double)$order_detail->initial_payment);
+
+    ?>
+    @foreach($period as $date)
+        <tr>
+            <td></td>
+            <td>{{ $order_detail->every_days.'.'. $date->month.'.'.$date->year  }}</td>
+            <td>{{ $order_detail->monthly_pay }} {{ $main_currency->currency }}</td>
+            {{--<td>{{ $summ1/$order_detail->date_agreement_month }} {{ $second_currency->currency }}</td>--}}
         </tr>
     @endforeach
     </tbody>

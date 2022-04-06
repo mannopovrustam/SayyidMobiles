@@ -86,7 +86,7 @@
                                                     <label class="col-form-label-sm"
                                                            for="validationTooltip02">Jami summa</label>
                                                     <input type="text" class="form-control form-control-sm"
-                                                           value="{{ $summ }}" readonly="">
+                                                           value="{{ $summ }}" name="sum_currency_pay" readonly="">
                                                 </div>
                                                 <div class="mb-3" style="margin-right: 20px;">
                                                     <label class="col-form-label-sm"

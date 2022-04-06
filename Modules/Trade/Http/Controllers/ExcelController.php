@@ -9,6 +9,9 @@ use Maatwebsite\Excel\Facades\Excel;
 use Modules\Invoice\Entities\Invoice;
 use Modules\Stock\Entities\Stock;
 use Modules\Trade\Exports\CashExport;
+use Modules\Trade\Exports\IncomeExport;
+use Modules\Trade\Exports\InstallmentExport;
+use Modules\Trade\Exports\LoanExport;
 
 class ExcelController extends Controller
 {
@@ -47,10 +50,17 @@ class ExcelController extends Controller
      */
     public function show($id)
     {
+        switch (Invoice::find($id)->type){
+            case 1: $type = new CashExport(); break;
+            case 2: $type = new LoanExport(); break;
+            case 3: $type = new InstallmentExport(); break;
+            case 4: $type = new IncomeExport(); break;
+        }
+
         session()->put('excel_invoice_id', $id);
-        return Excel::download(new CashExport(), 'Naqd Savdo ' .
+        return Excel::download($type, 'Naqd Savdo ' .
             Stock::find(Invoice::find($id)->stock_id)->name .' '.Invoice::find($id)->name .
-            ' '. now()->format('d.m.Y: H:i:s') . '.xlsx');
+            '.xlsx');
     }
 
     /**

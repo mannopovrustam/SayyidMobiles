@@ -9,7 +9,16 @@
                 @endif
 
                 @php(isset($data_id) ? $invoice = \Modules\Invoice\Entities\Invoice::find($data_id) : $invoice = null)
-                <h5 class="mb-0">{!! $invoice ? 'Invoice: '.$invoice->name:''!!}</h5>
+                @if($invoice)
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a href="/invoices/{{ $invoice->id }}" style="margin-right: 15px;">
+                            {!! $invoice ? '<h5 class="mb-0"> Invoice: ' . $invoice->name . '</h5>' : '' !!}
+                        </a>
+                        <a href="/trade_excel/{{ $invoice->id }}" class="btn btn-success" style="padding: 0 5px;">
+                            Excel
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

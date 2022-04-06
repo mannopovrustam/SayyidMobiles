@@ -6,7 +6,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Modules\Invoice\Entities\Invoice;
 
-class CashExport implements FromView
+class LoanExport implements FromView
 {
     public function view(): View
     {

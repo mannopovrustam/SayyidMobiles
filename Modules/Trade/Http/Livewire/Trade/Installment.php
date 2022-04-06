@@ -94,7 +94,7 @@ class Installment extends Component
             $this->discount = $item->discount;
             $this->summ = $this->summ - $this->discount;
         }
-        $this->calculate();
+//        $this->calculate();
     }
 
 //    public function calculate(){

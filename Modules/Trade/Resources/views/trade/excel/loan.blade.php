@@ -1,13 +1,14 @@
 <?php
-$stock = \Modules\Stock\Entities\Stock::find($invoice->stock_id);
-$main_currency = currency($stock->main_currency_id);
-$second_currency = $stock->second_currency_id;
+    $stock = \Modules\Stock\Entities\Stock::find($invoice->stock_id);
+    $main_currency = currency($stock->main_currency_id);
+    $second_currency = $stock->second_currency_id;
 ?>
 <table>
     <thead>
     <tr>
         <th>Sana</th>
         <th>Mahsulot soni (Jami)</th>
+        <th>Jami summa</th>
         <th>Mijoz</th>
         <th>Chegirma</th>
         <th></th>
@@ -23,22 +24,23 @@ $second_currency = $stock->second_currency_id;
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $invoice->date)->format('Y-m-d') }}</td>
-        <td>{{ $invoice->products->count() }}</td>
-        <td>{{ \Modules\Client\Entities\Client::find($invoice->client_id)->name }}</td>
-        <td>{{ $invoice->orders->first()->discount }}</td>
-        <td></td>
-        <td>{{ \Modules\Currency\Entities\Sum::find($invoice->sum_id)->sum_currency_pay }}</td>
-        <td>{{ \Modules\Currency\Entities\Sum::find($invoice->sum_id)->main_currency_pay }}</td>
-        @if($second_currency)
-            @foreach (explode("|", \Modules\Currency\Entities\Sum::find($invoice->sum_id)->second_currency_id) as $key => $each_second_currency_id)
-                <td>{{ explode("|", \Modules\Currency\Entities\Sum::find($invoice->sum_id)->second_currency_pay)[$key] }}</td>
-            @endforeach
-        @endif
-        <td>{{ \Modules\Currency\Entities\Sum::find($invoice->sum_id)->sum_currency_pay_will }}</td>
-        <td>{{ \Modules\Currency\Entities\Sum::find($invoice->sum_id)->sum_currency_pay_get + \Modules\Currency\Entities\Sum::find($invoice->sum_id)->sum_currency_pay_will }}</td>
-    </tr>
+        <tr>
+            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $invoice->date)->format('Y-m-d') }}</td>
+            <td>{{ $invoice->products->count() }}</td>
+            <td>{{ array_sum($invoice->products->pluck('cost')->toArray()) }}</td>
+            <td>{{ \Modules\Client\Entities\Client::find($invoice->client_id)->name }}</td>
+            <td>{{ $invoice->orders->first()->discount }}</td>
+            <td></td>
+            <td>{{ \Modules\Currency\Entities\Sum::find($invoice->sum_id)->sum_currency_pay }}</td>
+            <td>{{ \Modules\Currency\Entities\Sum::find($invoice->sum_id)->main_currency_pay }}</td>
+            @if($second_currency)
+                @foreach (explode("|", \Modules\Currency\Entities\Sum::find($invoice->sum_id)->second_currency_id) as $key => $each_second_currency_id)
+                    <td>{{ explode("|", \Modules\Currency\Entities\Sum::find($invoice->sum_id)->second_currency_pay)[$key] }}</td>
+                @endforeach
+            @endif
+            <td>{{ \Modules\Currency\Entities\Sum::find($invoice->sum_id)->sum_currency_pay_will }}</td>
+            <td>{{ \Modules\Currency\Entities\Sum::find($invoice->sum_id)->sum_currency_pay_get + \Modules\Currency\Entities\Sum::find($invoice->sum_id)->sum_currency_pay_will }}</td>
+        </tr>
     </tbody>
 </table>
 

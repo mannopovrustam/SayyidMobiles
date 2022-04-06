@@ -62,7 +62,7 @@ class OrderController extends Controller
 
         $sum = Sum::updateOrCreate(['id' => $invoice['sum_id']],[
             "sum_currency_id" => $request->main_currency_id,
-            "sum_currency_pay" => $request->amount,
+            "sum_currency_pay" => $request->sum_currency_pay,
             "sum_currency_pay_get" => array_sum($sum_currency_pay_get),
             "sum_currency_pay_will" => $request->price_agreement,
             "discount" => $request->discount,
