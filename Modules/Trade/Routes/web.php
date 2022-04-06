@@ -30,3 +30,5 @@ Route::prefix('/')->group(function() {
     Route::get('transfer', function (){ return view('trade::trade.transfer'); })->middleware('auth');
     Route::get('acceptance/{id}', function ($id){ return view('trade::trade.acceptance', compact('id')); })->middleware('auth');
 });
+
+Route::resource('trade_excel', \Modules\Trade\Http\Controllers\ExcelController::class);
