@@ -5,6 +5,9 @@ namespace Modules\Trade\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Stock\Exports\CashExport;
+
 
 class TradeController extends Controller
 {
@@ -33,7 +36,21 @@ class TradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('asd');
+        // if ($request->hasFile('excel')){
+        //     Excel::import(new StockMarksImport, $request->excel);
+        // }else{
+        //     StockMark::updateOrCreate(['id' => $request->data_id], [
+        //         'price_type_id' => $request->price_type_id,
+        //         'currency_id' => $request->main_currency_id,
+        //         'mark_id' => $request->mark_id,
+        //         'price' => $request->price,
+        //         'bonus' => $request->get('bonus', null)
+        //     ]);
+        //     Product::where([['mark_id', $request->mark_id], ['order_id', null]])->update([
+        //         'bonus' => $request->bonus
+        //     ]);
+        // }
     }
 
     /**
@@ -43,6 +60,10 @@ class TradeController extends Controller
      */
     public function show($id)
     {
+        // session()->put('stock_id', $id);
+        // return Excel::download(new CashExport, 'Savdo ' . now()->format('d.m.Y: H:i:s') . ' to\'lov.xlsx');
+        return view('trade::trade.excel.cash', ['id'=> $id]);
+
         session()->forget('cart');
         session()->forget('product');
         session()->forget('imei');

@@ -37,6 +37,7 @@ class StockMarkController extends Controller
      */
     public function store(Request $request)
     {
+        dd('StockMarkkkkkkkkkk');
         if ($request->hasFile('excel')){
             Excel::import(new StockMarksImport, $request->excel);
         }else{
