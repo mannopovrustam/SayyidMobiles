@@ -6,14 +6,14 @@ $second_currency = $stock->second_currency_id;
 <table>
     <thead>
     <tr>
-        <th>Umumiy ma'lumot</th>
-        <th>Sana</th>
-        <th>Mahsulot soni (Jami)</th>
-        <th>Mijoz</th>
-        <th></th>
-        <th>Mahsulot summa</th>
-        <th>Xarajat</th>
-        <th>Jami summa</th>
+        <th style="background: #1e3ed8; color: #ffffff; width: 150px;">Umumiy ma'lumot</th>
+        <th style="background: #1e3ed8; color: #ffffff; width: 150px;">Sana</th>
+        <th style="background: #1e3ed8; color: #ffffff; width: 150px;">Mahsulot soni (Jami)</th>
+        <th style="background: #1e3ed8; color: #ffffff; width: 150px;">Mijoz</th>
+        <th style="background: #1e3ed8; color: #ffffff; width: 150px;"></th>
+        <th style="background: #1e3ed8; color: #ffffff; width: 150px;">Mahsulot summa</th>
+        <th style="background: #1e3ed8; color: #ffffff; width: 150px;">Xarajat</th>
+        <th style="background: #1e3ed8; color: #ffffff; width: 150px;">Jami summa</th>
     </tr>
     </thead>
     <tbody>
@@ -33,11 +33,11 @@ $second_currency = $stock->second_currency_id;
 <table>
     <thead>
     <tr>
-        <th>Xarajat</th>
-        <th>Xarajat nomi</th>
-        <th>Xarajat summasi</th>
-        <th>Tur</th>
-        <th>Model</th>
+        <th style="background: #1e3ed8; color: #ffffff">Xarajat</th>
+        <th style="background: #1e3ed8; color: #ffffff">Xarajat nomi</th>
+        <th style="background: #1e3ed8; color: #ffffff">Xarajat summasi</th>
+        <th style="background: #1e3ed8; color: #ffffff">Tur</th>
+        <th style="background: #1e3ed8; color: #ffffff">Model</th>
     </tr>
     </thead>
     <tbody>
@@ -62,15 +62,15 @@ $second_currency = $stock->second_currency_id;
 <table>
     <thead>
     <tr>
-        <th>Mahsulot</th>
-        <th>Brend</th>
-        <th>Model</th>
-        <th>Soni @php($qty = 0)</th>
-        <th>Narxi @php($price = 0)</th>
-        <th>Jami xarajat @php($expense = 0)</th>
-        <th>Summa @php($sum = 0)</th>
-        <th>Tannarxi</th>
-        <th>Mahsulot</th>
+        <th style="background: #1e3ed8; color: #ffffff">Mahsulot</th>
+        <th style="background: #1e3ed8; color: #ffffff">Brend</th>
+        <th style="background: #1e3ed8; color: #ffffff">Model</th>
+        <th style="background: #1e3ed8; color: #ffffff">Soni @php($qty = 0)</th>
+        <th style="background: #1e3ed8; color: #ffffff">Narxi @php($price = 0)</th>
+        <th style="background: #1e3ed8; color: #ffffff">Jami xarajat @php($expense = 0)</th>
+        <th style="background: #1e3ed8; color: #ffffff">Summa @php($sum = 0)</th>
+        <th style="background: #1e3ed8; color: #ffffff">Tannarxi</th>
+        <th style="background: #1e3ed8; color: #ffffff">Mahsulot</th>
     </tr>
     </thead>
     <tbody>
