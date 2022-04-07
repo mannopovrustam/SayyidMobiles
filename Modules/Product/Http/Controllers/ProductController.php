@@ -2,11 +2,15 @@
 
 namespace Modules\Product\Http\Controllers;
 
+use Modules\Mark\Entities\Brand;
+use Modules\Product\Entities\Product;
 use Modules\Product\Exports\ProductExport;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Routing\Controller;
+use Modules\Stock\Entities\Stock;
+use Modules\Stock\Entities\StockMark;
 
 class ProductController extends Controller
 {
@@ -40,9 +44,22 @@ class ProductController extends Controller
         //
     }
 
-    public function export($id)
+    public function export()
     {
-        session()->put('stock_id', $id);
+        $stock_id = \request()->get('stock_id');
+        $brand = \request()->get('brand');
+        $name = \request()->get('name');
+        $start = \request()->get('start');
+        $end = \request()->get('end');
+        $residue = \request()->get('residue');
+
+        session()->put('stock_id', $stock_id);
+        session()->put('brand', $brand);
+        session()->put('name', $name);
+        session()->put('start', $start);
+        session()->put('end', $end);
+        session()->put('residue', $residue);
+
         return Excel::download(new ProductExport, 'product.xlsx');
     }
     public function show($id)
