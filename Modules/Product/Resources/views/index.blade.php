@@ -12,17 +12,26 @@
 @endsection
 
 @section('content')
-    
+
     <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Mahsulotlar</h4>
-                        @livewire('product::product.data')
-                </div>
-            </div>
-        </div>
-        <!-- end col -->
+    <div class="col-xl-12">
+    <div class="card">
+    <div class="card-body">
+    <div class="row justify-between">
+    <div class="col-sm-6">
+    <h4 class="card-title">Mahsulotlaradsasd</h4>
+    </div>
+    <div class="col-sm-6" style="text-align: end">
+    <a href="/products">
+    <button class="btn btn-success" style="padding: 2px"><i class="bx bx-save">&nbsp;</i>Excel</button>
+    </a>
+    </div>
+    </div><br>
+    <!-- @livewire('product::product.data') -->
+    </div>
+    </div>
+    </div>
+    <!-- end col -->
     </div>
 
 @endsection

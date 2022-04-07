@@ -12,3 +12,5 @@
 */
 
 Route::resource('/products', 'ProductController');
+
+Route::get('/productsexport/{id}', [\Modules\Product\Http\Controllers\ProductController::class, 'export']);

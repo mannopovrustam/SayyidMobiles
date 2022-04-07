@@ -2,8 +2,10 @@
 
 namespace Modules\Product\Http\Controllers;
 
+use Modules\Product\Exports\ProductExport;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Routing\Controller;
 
 class ProductController extends Controller
@@ -38,15 +40,16 @@ class ProductController extends Controller
         //
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
+    public function export($id)
+    {
+        session()->put('stock_id', $id);
+        return Excel::download(new ProductExport, 'product.xlsx');
+    }
     public function show($id)
     {
         return view('product::show');
     }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -1,3 +1,4 @@
+
 <div xmlns:wire="http://www.w3.org/1999/xhtml">
     <div class="table-responsive">
         <style>
@@ -38,9 +39,15 @@
             <tbody>
                 @foreach($all_products as $all_product)
                     <?php
-                        if ($brand){ $statement[] = $all_product['brand_name'] == $brand; }
-                        if ($name){ $statement[] = $all_product['mark_name'] == $name; }
-                        if ($residue){ $statement[] = $all_product['not_sold'] == $residue; }
+                        if ($brand){
+                            $statement[] = $all_product['brand_name'] == $brand;
+                        }
+                        if ($name){
+                            $statement[] = $all_product['mark_name'] == $name;
+                        }
+                        if ($residue){
+                            $statement[] = $all_product['not_sold'] == $residue;
+                        }
                     ?>
                     @if(
                         ($brand ? str_contains($all_product['brand_name'], $brand) : true)
@@ -49,6 +56,7 @@
                         &&
                         ($residue ? $all_product['not_sold'] == $residue : true)
                     )
+
                         <tr>
                             <td>{{ $all_product['stocks_name'] }}</td>
                             <td>{{ $all_product['brand_name'] }}</td>
@@ -103,5 +111,8 @@
             {{--@endif--}}
             </tbody>
         </table>
+        <?php
+//            dd($products_setting);
+        ?>
     </div>
 </div>
