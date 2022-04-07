@@ -123,7 +123,11 @@
                                                 {{ currency($s_currency)->currency}}{{ !$loop->last ? ',':'' }}
                                             @endforeach
                                         </td>
-                                        <td data-field="currency">{{ \App\Models\User::find($stock->user_id)->name }}</td>
+                                        <td data-field="currency">
+                                            @foreach(explode("|", $stock->user_id) as $item)
+                                                {{ \App\Models\User::find($item)->name }}{{ !$loop->last ? ',':'' }}
+                                            @endforeach
+                                        </td>
                                         <td style="width: 100px">
                                             <a href="/stocks/{{ $stock->id }}"
                                                class="btn btn-outline-secondary btn-sm" title="Show">
@@ -190,9 +194,8 @@
                                                                 </div>
                                                                 <div class="mb-3 position-relative">
                                                                     <label class="col-form-label-sm" for="validationCustom02">Qaysi foydalanuvchiga tegishli</label>
-                                                                    <select class="form-select form-select-sm" name="user_id"
-                                                                            id="validationCustom02"
-                                                                            required>
+                                                                    <select class="form-select form-select-sm" name="user_id[]"
+                                                                            id="validationCustom02" multiple required>
                                                                         @foreach(\App\Models\User::all() as $item)
                                                                             <option @if($item->id == $stock->user_id) selected @endif
                                                                             value="{{ $item->id }}">{{ $item->email }}</option>

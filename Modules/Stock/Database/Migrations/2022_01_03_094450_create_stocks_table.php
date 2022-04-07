@@ -16,8 +16,7 @@ class CreateStocksTable extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->integer('stock_id')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('user_id')->nullable();
             $table->integer('price_type_id')->nullable();
             $table->string('name')->nullable();
             $table->integer('main_currency_id')->nullable();
