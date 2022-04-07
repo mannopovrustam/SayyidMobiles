@@ -8,9 +8,16 @@ use Modules\Invoice\Entities\Invoice;
 
 class IncomeExport implements FromView
 {
+    protected $invoices;
+
+    public function __construct($invoices)
+    {
+        $this->invoices = $invoices;
+    }
+
     public function view(): View
     {
-        switch (Invoice::find(session()->get('excel_invoice_id'))->type){
+        switch (Invoice::find($this->invoices)->type){
             case 1: $type = 'cash'; break;
             case 2: $type = 'loan'; break;
             case 3: $type = 'installment'; break;
@@ -18,7 +25,7 @@ class IncomeExport implements FromView
         }
 
         return view('trade::trade.excel.'.$type, [
-            'invoice' => Invoice::find(session()->get('excel_invoice_id')),
+            'invoice' => Invoice::find($this->invoices),
         ]);
     }
 }

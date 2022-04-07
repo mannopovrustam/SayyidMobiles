@@ -51,10 +51,10 @@ class ExcelController extends Controller
     public function show($id)
     {
         switch (Invoice::find($id)->type){
-            case 1: $type = new CashExport(); break;
-            case 2: $type = new LoanExport(); break;
-            case 3: $type = new InstallmentExport(); break;
-            case 4: $type = new IncomeExport(); break;
+            case 1: $type = new CashExport($id); break;
+            case 2: $type = new LoanExport($id); break;
+            case 3: $type = new InstallmentExport($id); break;
+            case 4: $type = new IncomeExport($id); break;
         }
 
         session()->put('excel_invoice_id', $id);
