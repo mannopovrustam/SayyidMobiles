@@ -9,7 +9,7 @@
                 @endif
 
                 @php(isset($data_id) ? $transfer = \Modules\Trade\Entities\Transfer::find($data_id) : $transfer = null)
-                <h5 class="mb-0">{!! $transfer ? 'Invoice: '.$transfer->name:''!!}</h5>
+                <h5 class="mb-0">{!! $transfer ? 'Invoice: '.$transfer->name:''!!} @if($transfer)<a href="/transfer_export/{{ $data_id }}"><button class="btn btn-success" style="margin-left: 5px; padding: 2px"><i class="bx bx-save"></i>Excel</button></a>@endif</h5>
             </div>
         </div>
     </div>

@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Modules\Product\Entities\Product;
 use Modules\Trade\Entities\Transfer;
+use Maatwebsite\Excel\Facades\Excel;
+use Modules\Trade\Exports\TransferExport;
 
 class TransferController extends Controller
 {
@@ -124,5 +126,12 @@ class TransferController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export($data_id){
+            $id = session()->get('id');
+            $id['id'] = $data_id;
+            session()->put('id', $id);
+        return Excel::download(new TransferExport, 'transfer.xlsx');
     }
 }

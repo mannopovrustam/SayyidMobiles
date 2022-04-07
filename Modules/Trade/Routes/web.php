@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('trade', \Modules\Trade\Http\Controllers\TradeController::class)->middleware('auth');
 Route::resource('transfers', \Modules\Trade\Http\Controllers\TransferController::class)->middleware('auth');
+Route::get('/transfer_export/{id}', [\Modules\Trade\Http\Controllers\TransferController::class, 'export'])->middleware('auth');
 
 Route::get('/acceptances', function (){
     $data = \Modules\Trade\Entities\Transfer::orderBy('created_at', 'desc')->where('stock_to', auth()->user()->stock_id)->get();
