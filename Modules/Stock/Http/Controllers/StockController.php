@@ -11,6 +11,11 @@ use Modules\Stock\Entities\Stock;
 
 class StockController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('stock::index', ['data_id' => null]);

@@ -24,7 +24,7 @@
                 <li class="menu-title">Menu</li>
 
                 <li>
-                    <a href="/home">
+                    <a href="/dashboard">
                         <i class="uil-home-alt"></i>
                         <span>Asosiy</span>
                     </a>
@@ -109,6 +109,13 @@
                     <a href="/currency_differences" >
                         <i class="uil-euro"></i>
                         <span>Valyuta farqi</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/permissions" >
+                        <i class="uil-lock-access"></i>
+                        <span>Ruxsatlar</span>
                     </a>
                 </li>
             </ul>
