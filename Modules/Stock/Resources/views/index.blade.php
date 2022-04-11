@@ -68,10 +68,10 @@
                                         </div>
                                         <div class="mb-3 position-relative">
                                             <label class="col-form-label-sm" for="validationCustom02">Qaysi
-                                                foydalanuvchiga tegishli</label>
-                                            <select class="form-select form-select-sm" name="user_id"
+                                                xodimga tegishli</label>
+                                            <select class="form-select form-select-sm" name="user_id[]"
                                                     id="validationCustom02"
-                                                    required>
+                                                    required multiple>
                                                 @foreach(\App\Models\User::all() as $item)
                                                     <option value="{{ $item->id }}">{{ $item->email }}</option>
                                                 @endforeach

@@ -110,22 +110,22 @@
                             <span>Savdo</span>
                         </a>
                         <ul class="sub-menu">
-                            @can('trade/cash')
+                            @can('trade_cash')
                                 <li><a href="/trade/cash">Naqd savdo</a></li>
                             @endcan
-                            @can('trade/loan')
+                            @can('trade_loan')
                                 <li><a href="/trade/loan">Nasiya</a></li>
                             @endcan
-                            @can('trade/installment')
+                            @can('trade_installment')
                                 <li><a href="/trade/installment">Muddatli to'lov</a></li>
                             @endcan
-                            @can('trade/income')
+                            @can('trade_income')
                                 <li><a href="/trade/income">Kirim</a></li>
                             @endcan
-                            @can('trade/return')
+                            @can('trade_return')
                                 <li><a href="/trade/return">Mahsulot qaytishi</a></li>
                             @endcan
-                            @can('trade/transfer')
+                            @can('trade_transfer')
                                 <li><a href="/trade/transfer">O'tkazma</a></li>
                             @endcan
                         </ul>

@@ -35,6 +35,8 @@ class StockController extends Controller
         $data = Stock::updateOrCreate(['id' => $request->data_id], $values);
         User::find($data->user_id)->update(['stock_id' => $data->id]);
 
+        session()->put('stock', $data->id);
+
         return back();
     }
 

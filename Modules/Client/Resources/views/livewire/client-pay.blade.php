@@ -35,7 +35,7 @@
     <br>
 {{--    {{dd($main_currency)}}--}}
 {{--        {{dd($currency_id)}}--}}
-    <div class="row">
+    <div class="row align-items-end">
         <?php
             $residue = (int)$summ;
             $residue = $residue - change_currency($main_currency_pay, $main_currency, $currency_id);
@@ -87,8 +87,8 @@
         @endforeach
 
 
-        <div class="col-md-2 d-grid gap-2">
-            <input class="btn btn-success" type="submit" value="Saqlash">
+        <div class="col-md-1 d-grid gap-2">
+            <input class="btn btn-sm btn-success" type="submit" value="Saqlash">
         </div>
     </div>
     <script>

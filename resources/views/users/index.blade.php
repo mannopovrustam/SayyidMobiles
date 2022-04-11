@@ -36,7 +36,7 @@
                                 <a class="btn btn-sm btn-info" href="{{ route('users.show',$user->id) }}">Ko'rsatish</a>
                                 <a class="btn btn-sm btn-primary" href="{{ route('users.edit',$user->id) }}">Tahrirlash</a>
                                 {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                                {!! Form::submit("O'chirish", ['class' => 'btn btn-sm btn-danger']) !!}
+                                {{--{!! Form::submit("O'chirish", ['class' => 'btn btn-sm btn-danger']) !!}--}}
                                 {!! Form::close() !!}
                             </td>
                         </tr>
