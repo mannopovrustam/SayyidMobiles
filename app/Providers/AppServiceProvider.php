@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(199);
+        Schema::defaultStringLength(125);
         if (auth()->check()){
             if (auth()->user()->stock_id){
                 Session::put('stock', auth()->user()->stock_id);

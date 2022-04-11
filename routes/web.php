@@ -30,6 +30,11 @@ Route::get('artisan/{command}', function ($command){
     \Artisan::call($text);
 });
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('users', \App\Http\Controllers\UserController::class);
+    Route::resource('roles', \App\Http\Controllers\RoleController::class);
+    Route::resource('permissions', \App\Http\Controllers\PermissionController::class);
+});
 
 //Route::get('test', function (){
 //    \Modules\Currency\Entities\Currency::create([

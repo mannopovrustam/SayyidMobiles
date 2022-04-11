@@ -2,7 +2,7 @@
 
 @section('content')
 
-        <div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -32,19 +32,23 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="col-form-label-sm" for="validationCustom01">Ombor nomi</label>
-                                            <input type="text" class="form-control form-control-sm" name="name" id="validationCustom01"
+                                            <input type="text" class="form-control form-control-sm" name="name"
+                                                   id="validationCustom01"
                                                    placeholder="Склад номи" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="col-form-label-sm" for="validationCustom02">Ombor manzili</label>
+                                            <label class="col-form-label-sm" for="validationCustom02">Ombor
+                                                manzili</label>
                                             <input type="text" class="form-control form-control-sm" name="address"
                                                    id="validationCustom02"
                                                    placeholder="Склад Адреси" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="col-form-label-sm" for="main_currency_id">Asosiy valyuta</label>
-                                            <select class="form-select form-select-sm" name="main_currency_id" id="main_currency_id"
+                                            <label class="col-form-label-sm" for="main_currency_id">Asosiy
+                                                valyuta</label>
+                                            <select class="form-select form-select-sm" name="main_currency_id"
+                                                    id="main_currency_id"
                                                     required>
                                                 @foreach(\Modules\Currency\Entities\Currency::all() as $item)
                                                     <option value="{{ $item->id }}">{{ $item->currency }}</option>
@@ -52,8 +56,10 @@
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="col-form-label-sm" for="second_currency_id">Ikkinchi valyuta</label>
-                                            <select class="form-select form-select-sm" name="second_currency_id[]" id="second_currency_id" multiple>
+                                            <label class="col-form-label-sm" for="second_currency_id">Ikkinchi
+                                                valyuta</label>
+                                            <select class="form-select form-select-sm" name="second_currency_id[]"
+                                                    id="second_currency_id" multiple>
                                                 <option value="{{ null }}"></option>
                                                 @foreach(\Modules\Currency\Entities\Currency::all() as $item)
                                                     <option value="{{ $item->id }}">{{ $item->currency }}</option>
@@ -61,7 +67,8 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 position-relative">
-                                            <label class="col-form-label-sm" for="validationCustom02">Qaysi foydalanuvchiga tegishli</label>
+                                            <label class="col-form-label-sm" for="validationCustom02">Qaysi
+                                                foydalanuvchiga tegishli</label>
                                             <select class="form-select form-select-sm" name="user_id"
                                                     id="validationCustom02"
                                                     required>
@@ -71,7 +78,8 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 position-relative">
-                                            <label class="col-form-label-sm" for="validationCustom02">Narx turini tanlang</label>
+                                            <label class="col-form-label-sm" for="validationCustom02">Narx turini
+                                                tanlang</label>
                                             <select class="form-select form-select-sm" name="price_type_id"
                                                     id="validationCustom02"
                                                     required>
@@ -157,15 +165,18 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="validationTooltip01">Название
+                                                                    <label class="col-form-label-sm"
+                                                                           for="validationTooltip01">Название
                                                                         склада</label>
-                                                                    <input type="text" name="name" class="form-control form-control-sm"
+                                                                    <input type="text" name="name"
+                                                                           class="form-control form-control-sm"
                                                                            value="{{ $stock->name }}"
                                                                            id="validationTooltip01"
                                                                            placeholder="Название магазина" required>
                                                                 </div>
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="validationTooltip01">Склад
+                                                                    <label class="col-form-label-sm"
+                                                                           for="validationTooltip01">Склад
                                                                         Адреси</label>
                                                                     <input type="text" name="address"
                                                                            class="form-control form-control-sm"
@@ -174,42 +185,59 @@
                                                                            placeholder="Склад Адреси" required>
                                                                 </div>
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="main_currency_id">Ombor valyutasi (asosiy)</label>
-                                                                    <select class="form-select form-select-sm" name="main_currency_id"
+                                                                    <label class="col-form-label-sm"
+                                                                           for="main_currency_id">Ombor valyutasi
+                                                                        (asosiy)</label>
+                                                                    <select class="form-select form-select-sm"
+                                                                            name="main_currency_id"
                                                                             id="main_currency_id"
                                                                             required>
                                                                         @foreach(\Modules\Currency\Entities\Currency::all() as $item)
-                                                                            <option value="{{ $item->id }}" @if($stock->main_currency_id == $item->id) selected @endif>{{ $item->currency }}</option>
+                                                                            <option value="{{ $item->id }}"
+                                                                                    @if($stock->main_currency_id == $item->id) selected @endif>{{ $item->currency }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="second_currency_id">Ombor valyutasi (qo'shimcha)</label>
-                                                                    <select class="form-select form-select-sm" name="second_currency_id[]" id="second_currency_id" multiple>
+                                                                    <label class="col-form-label-sm"
+                                                                           for="second_currency_id">Ombor valyutasi
+                                                                        (qo'shimcha)</label>
+                                                                    <select class="form-select form-select-sm"
+                                                                            name="second_currency_id[]"
+                                                                            id="second_currency_id" multiple>
                                                                         <option value="{{ null }}"></option>
                                                                         @foreach(\Modules\Currency\Entities\Currency::all() as $item)
-                                                                            <option value="{{ $item->id }}" @if(in_array($item->id, explode("|", $stock->second_currency_id))) selected @endif>{{ $item->currency }}</option>
+                                                                            <option value="{{ $item->id }}"
+                                                                                    @if(in_array($item->id, explode("|", $stock->second_currency_id))) selected @endif>{{ $item->currency }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="validationCustom02">Qaysi foydalanuvchiga tegishli</label>
-                                                                    <select class="form-select form-select-sm" name="user_id[]"
+                                                                    <label class="col-form-label-sm"
+                                                                           for="validationCustom02">Qaysi
+                                                                        foydalanuvchiga tegishli</label>
+                                                                    <select class="form-select form-select-sm"
+                                                                            name="user_id[]"
                                                                             id="validationCustom02" multiple required>
                                                                         @foreach(\App\Models\User::all() as $item)
-                                                                            <option @if($item->id == $stock->user_id) selected @endif
-                                                                            value="{{ $item->id }}">{{ $item->email }}</option>
+                                                                            <option @if($item->id == $stock->user_id) selected
+                                                                                    @endif
+                                                                                    value="{{ $item->id }}">{{ $item->email }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="validationCustom02">Narx turini tanlang</label>
-                                                                    <select class="form-select form-select-sm" name="price_type_id"
+                                                                    <label class="col-form-label-sm"
+                                                                           for="validationCustom02">Narx turini
+                                                                        tanlang</label>
+                                                                    <select class="form-select form-select-sm"
+                                                                            name="price_type_id"
                                                                             id="validationCustom02"
                                                                             required>
                                                                         @foreach(\Modules\Stock\Entities\PriceType::all() as $item)
-                                                                            <option @if($item->id == $stock->price_type_id) selected @endif
-                                                                            value="{{ $item->id }}">{{ $item->name }}</option>
+                                                                            <option @if($item->id == $stock->price_type_id) selected
+                                                                                    @endif
+                                                                                    value="{{ $item->id }}">{{ $item->name }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
