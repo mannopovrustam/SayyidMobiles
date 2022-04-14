@@ -233,7 +233,7 @@
                                                                 <div class="form-group">
                                                                     <select class="form-control form-control-sm"
                                                                             wire:model="x_mark.{{ $key }}" name="x_mark[{{ $key }}][]" multiple>
-                                                                        <option value="all">Hammasiga</option>
+                                                                        {{--<option value="all">Hammasiga</option>--}}
                                                                         @foreach(session()->get('cart') as  $item=>$value)
                                                                             @if(in_array($item, array_keys(session()->get('cart'))))
                                                                                 <option value="{{ $item }}">{{ \Modules\Mark\Entities\Mark::find($item)->name }}</option>
@@ -442,8 +442,10 @@
                                                                        name="price[{{$key}}]"
                                                                        wire:model="price.{{$key}}"
                                                                        class="form-control form-control-sm"
-                                                                       placeholder="{{ \Modules\Stock\Entities\StockMark::where([['mark_id', $key], ['price_type_id', $stock->price_type_id]])->first()->price .
-                                                                       currency($stock->main_currency_id)->currency}} sotuv narxi"
+                                                                       @if(\Modules\Stock\Entities\StockMark::where([['mark_id', $key], ['price_type_id', $stock->price_type_id]])->first())
+                                                                           placeholder="{{ \Modules\Stock\Entities\StockMark::where([['mark_id', $key], ['price_type_id', $stock->price_type_id]])->first()->price .
+                                                                           currency($stock->main_currency_id)->currency}} sotuv narxi"
+                                                                       @endif
                                                                 >
                                                             </td>
                                                             <td>
