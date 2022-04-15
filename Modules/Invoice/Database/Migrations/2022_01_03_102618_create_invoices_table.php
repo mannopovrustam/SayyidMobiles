@@ -23,6 +23,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('type')->nullable();
             $table->integer('sum_id')->nullable();
             $table->string('date')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

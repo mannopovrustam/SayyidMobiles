@@ -39,7 +39,7 @@ class Cash extends Component
     public $second_currency_pay_1 = [];
 
     public function mount(){
-        $this->stock_id = auth()->user()->stock_id;
+        $this->stock_id = session()->get('stock');
         $this->stock = Stock::find($this->stock_id);
         foreach (explode("|", $this->stock->second_currency_id) as $item){
             $this->second_currency_pay_1[$item] = 0;
@@ -48,7 +48,7 @@ class Cash extends Component
 
     public function render()
     {
-        $this->stock_id = auth()->user()->stock_id;
+        $this->stock_id = session()->get('stock');
         $this->stock = Stock::find($this->stock_id);
 
         if(Stock::find($this->stock_id)) {

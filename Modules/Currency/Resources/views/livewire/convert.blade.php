@@ -195,7 +195,7 @@
                 </thead>
                 <tbody>
                 <?php $num = 1; ?>
-                @foreach(\Modules\Currency\Entities\Convert::where('stock_id', auth()->user()->stock_id)->get() as $convert)
+                @foreach(\Modules\Currency\Entities\Convert::where('stock_id', session()->get('stock'))->get() as $convert)
                     <?php
                         $stockOperation = \Modules\Stock\Entities\StockOperation::where('convert_id', $convert->id)->get()->first();
                     ?>

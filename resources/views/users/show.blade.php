@@ -25,6 +25,7 @@
                     </div>
                     <br><br>
 
+                    @if($user->stock_id)
                     {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
@@ -41,6 +42,10 @@
                             <button type="submit" class="btn btn-sm btn-primary">Saqlash</button>
                         </div>
                     {!! Form::close() !!}
+                    @else
+                        <br>
+                        <h4 class="text-warning">Bo'limlarga <u class="text-success">RUXSAT</u> berish uchun Xodim <a href="/stocks" class="text-primary">omborga</a> biriktirilgan bo'lishi shart!</h4>
+                    @endif
                 </div>
             </div>
         </div>

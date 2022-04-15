@@ -61,6 +61,35 @@
                 {{--</div>--}}
                 <div class="row">
                     <div class="col-12">
+                        @if(session()->get('stock') == 0)
+                        <div id="free_trial" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-modal="true"
+                             style="display: block; background: #000000aa">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel"><strong>Bildirishnoma</strong></h5>
+                                        <button class="btn btn-sm btn-soft-default" style="position: absolute; left: 75%"
+                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span
+                                                    class="align-middle">Выход</span></button>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                Siz bironta omborga biriktirilmagansiz!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
                         {{ isset($slot) ? $slot : ''}}
                         @yield('content')
                     </div>

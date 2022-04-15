@@ -21,10 +21,11 @@ use Modules\Stock\Entities\StockOperation;
 
 class InvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
 
@@ -35,7 +36,7 @@ class InvoiceController extends Controller
             case 'income': $type = 4; break;
         }
 
-        $data = Invoice::orderBy('created_at', 'desc')->where([['stock_id', auth()->user()->stock_id],['type',$type]])->get();
+        $data = Invoice::orderBy('created_at', 'desc')->where([['stock_id', session()->get('stock')],['type',$type]])->get();
         return view('invoice::index', ['data' => $data]);
     }
 
@@ -55,8 +56,13 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $stock = Stock::find(auth()->user()->stock_id);
-        foreach (explode("|", Stock::find(auth()->user()->stock_id)->second_currency_id) as $second_currency_rate_for){
+
+        $request->validate([
+            'note' => 'required'
+        ]);
+
+        $stock = Stock::find(session()->get('stock'));
+        foreach (explode("|", Stock::find(session()->get('stock'))->second_currency_id) as $second_currency_rate_for){
             $second_currency_rate[] = \currency($second_currency_rate_for)->rate;
             $second_currency_pay[] = 0;
         }
@@ -73,7 +79,7 @@ class InvoiceController extends Controller
             "main_currency_id" => $stock->main_currency_id,
             "main_currency_rate" => \currency($stock->main_currency_id)->rate,
             "main_currency_pay" => 0,
-            "second_currency_id" => Stock::find(auth()->user()->stock_id)->second_currency_id,
+            "second_currency_id" => Stock::find(session()->get('stock'))->second_currency_id,
             "second_currency_rate" => implode("|",$second_currency_rate),
             "second_currency_pay" => implode("|",$second_currency_pay),
         ]);
@@ -81,7 +87,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::updateOrCreate(['id' => $request['data_id']],[
             'name' => $request->get('invoice', Str::random(10)),
             'type' => $request->type,
-            'stock_id' => auth()->user()->stock_id,
+            'stock_id' => session()->get('stock'),
             'client_id' => $request->client_id,
             'date' => $request->date,
             "sum_id" => $sum->id,

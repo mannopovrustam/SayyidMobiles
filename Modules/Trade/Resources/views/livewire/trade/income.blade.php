@@ -7,6 +7,12 @@
                 @if(isset($data_id))
                     <input type="hidden" name="data_id" value="{{ $data_id }}">
                 @endif
+                @if(session()->get('note'))
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        Mahsulot kiritilishi majbiriy!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
                 @php(isset($data_id) ? $invoice = \Modules\Invoice\Entities\Invoice::find($data_id) : $invoice = null)
                 @if($invoice)

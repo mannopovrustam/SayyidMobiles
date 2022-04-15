@@ -13,13 +13,14 @@ use Modules\Trade\Exports\TransferExport;
 
 class TransferController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $data = \Modules\Trade\Entities\Transfer::orderBy('created_at', 'desc')->where('stock_from', auth()->user()->stock_id)->get();
+        $data = \Modules\Trade\Entities\Transfer::orderBy('created_at', 'desc')->where('stock_from', session()->get('stock'))->get();
         return view('trade::transfer.data', ['data' => $data]);
     }
 

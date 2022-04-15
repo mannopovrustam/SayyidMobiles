@@ -32,7 +32,7 @@
     <li class="nav-item">
         <a href="/acceptances" class="nav-link @if(\Request::segment(2) == 'acceptance') active @endif">
             Qabul <span style="background: #5b73e8; padding: 1px 4px; border-radius: 5px; color: #fff; font-size: smaller">
-                {{ count(\Modules\Trade\Entities\Transfer::where([['status', 0], ['stock_to', auth()->user()->stock_id]])->get()) }}
+                {{ count(\Modules\Trade\Entities\Transfer::where([['status', 0], ['stock_to', session()->get('stock')]])->get()) }}
             </span>
         </a>
     </li>

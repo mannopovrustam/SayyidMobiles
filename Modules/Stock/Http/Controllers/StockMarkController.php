@@ -12,10 +12,11 @@ use Modules\Stock\Entities\StockMark;
 
 class StockMarkController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('stock::index');

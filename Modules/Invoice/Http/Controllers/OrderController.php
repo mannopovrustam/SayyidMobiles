@@ -20,10 +20,11 @@ use Modules\Stock\Entities\StockOperation;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('invoice::index');
@@ -45,7 +46,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $stock = Stock::find((int)auth()->user()->stock_id);
+        $stock = Stock::find((int)session()->get('stock'));
         foreach ($request->second_currency_id as $second_currency_rate_for){
             $second_currency_rate[] = currency($second_currency_rate_for)->rate;
         }

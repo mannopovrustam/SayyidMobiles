@@ -41,7 +41,7 @@ class ClientPaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $stock = Stock::find(auth()->user()->stock_id);
+        $stock = Stock::find(session()->get('stock'));
 
         $sec_cur_rate = [];
         foreach (explode("|", $request->second_currency_id) as $sec_cur_id){

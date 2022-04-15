@@ -15,10 +15,11 @@ use Modules\Trade\Exports\LoanExport;
 
 class ExcelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('trade::index');

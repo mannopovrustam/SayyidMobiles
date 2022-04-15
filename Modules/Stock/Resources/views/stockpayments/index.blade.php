@@ -14,7 +14,7 @@
 @section('content')
 
     <?php
-    $stock_id = auth()->user()->stock_id;
+    $stock_id = session()->get('stock');
     $stock_payment = 0;
     ?>
     <div class="container-fluid">
@@ -80,7 +80,7 @@
                                            for="validationTooltip02">Ombor</label>
                                     <select name="stock_to" class="form-select form-select-sm" id="">
                                         @foreach(\Modules\Stock\Entities\Stock::all() as $item)
-                                            @if($item->id != auth()->user()->stock_id)
+                                            @if($item->id != session()->get('stock'))
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endif
                                         @endforeach
@@ -222,7 +222,7 @@
                                         <td>
                                             @isset(\Modules\Stock\Entities\StockPayment::find($s_o->stock_payment_id)->status)
                                                 @if(\Modules\Stock\Entities\StockPayment::find($s_o->stock_payment_id)->status == 0 &&
-                                                \Modules\Stock\Entities\StockPayment::find($s_o->stock_payment_id)->stock_to == auth()->user()->stock_id)
+                                                \Modules\Stock\Entities\StockPayment::find($s_o->stock_payment_id)->stock_to == session()->get('stock'))
                                                     <form action="/stock_payments/{{ $s_o->stock_payment_id }}" method="post">
                                                         @csrf
                                                         {{ method_field('put') }}

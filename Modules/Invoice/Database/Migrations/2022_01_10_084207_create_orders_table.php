@@ -31,6 +31,7 @@ class CreateOrdersTable extends Migration
             $table->string('discount')->nullable();
             $table->text('products')->nullable();
             $table->text('products_price')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

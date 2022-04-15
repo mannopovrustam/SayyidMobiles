@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
                     <h4 class="mb-0">Ombor
-                        <u>{{ \Modules\Stock\Entities\Stock::find($stock_id) ? \Modules\Stock\Entities\Stock::find($stock_id)->name : null }}</u>::<a
+                        <u>{{ \Modules\Stock\Entities\Stock::find(session()->get('stock')) ? \Modules\Stock\Entities\Stock::find(session()->get('stock'))->name : null }}</u>::<a
                                 href="/invoices?type=cash"><span class="text-primary">Naqd savdo</span></a></h4>
                     @php(isset($data_id) ? ($invoice = \Modules\Invoice\Entities\Invoice::find($data_id)) : ($invoice = null))
                     @if ($invoice)

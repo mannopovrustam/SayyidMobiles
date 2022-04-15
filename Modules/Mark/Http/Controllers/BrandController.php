@@ -10,10 +10,11 @@ use Modules\Mark\Entities\Brand;
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('mark::brand');

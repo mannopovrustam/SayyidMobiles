@@ -138,11 +138,11 @@
                                         </td>
                                         <td style="width: 100px">
                                             <a href="/stocks/{{ $stock->id }}"
-                                               class="btn btn-outline-secondary btn-sm" title="Show">
+                                               class="btn btn-outline-secondary btn-sm" title="Ko'rsatish">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <a class="btn btn-outline-secondary btn-sm edit" data-bs-toggle="modal"
-                                               data-bs-target="#storeModel{{$stock->id}}" title="Edit">
+                                               data-bs-target="#storeModel{{$stock->id}}" title="O'zgartirish">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                             <div id="storeModel{{$stock->id}}" class="modal fade" tabindex="-1"
@@ -261,10 +261,20 @@
                                                 {{ method_field('delete') }}
                                                 <button type="submit"
                                                         onclick="return confirm('Вы точно хотите удалить {{ $stock->name }}');"
-                                                        class="btn btn-outline-secondary btn-sm">
+                                                        class="btn btn-outline-secondary btn-sm" title="O'chirish">
                                                     <i class="uil uil-trash-alt"></i>
                                                 </button>
                                             </form>
+                                            @if(session()->get('stock') == $stock->id)
+                                                <a class="btn btn-primary btn-sm" title="Tanlangan">
+                                                    <i class="uil uil-check"></i>
+                                                </a>
+                                            @else
+                                                <a href="/switching/{{ $stock->id }}" class="btn btn-outline-secondary btn-sm" title="Almashtirish">
+                                                    <i class="uil uil-arrow-to-right"></i>
+                                                </a>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

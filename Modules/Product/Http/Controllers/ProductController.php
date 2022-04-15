@@ -20,7 +20,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        session()->put('stock', auth()->user()->stock_id);
         $stock_id = session()->get('stock');
         return view('product::index', ['stock_id' => $stock_id]);
     }

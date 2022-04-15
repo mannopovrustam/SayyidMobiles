@@ -19,7 +19,7 @@ class ConvertController extends Controller
 
     public function index()
     {
-        $data = Convert::where('stock_id', auth()->user()->stock_id)->get();
+        $data = Convert::where('stock_id', session()->get('stock'))->get();
         return view('currency::convert.data', ['data' => $data, 'data_id' => null]);
     }
 
@@ -31,7 +31,7 @@ class ConvertController extends Controller
 
     public function store(Request $request)
     {
-        $stock_id = auth()->user()->stock_id;
+        $stock_id = session()->get('stock');
 
         $convert = Convert::updateOrCreate(['id' => $request->data_id], [
             'stock_id' => $stock_id,

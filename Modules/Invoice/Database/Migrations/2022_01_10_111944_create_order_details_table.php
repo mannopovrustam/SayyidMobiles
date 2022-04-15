@@ -27,6 +27,7 @@ class CreateOrderDetailsTable extends Migration
             $table->string('initial_payment')->nullable();
             $table->string('date_agreement_month')->nullable();
             $table->string('every_days')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
