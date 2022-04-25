@@ -24,6 +24,8 @@ class CreateExpensesTable extends Migration
             $table->integer('main_currency_id')->nullable();
             $table->string('main_currency_pay')->default(0);
             $table->string('main_currency_rate')->default(0);
+            $table->integer('client_id')->default(0);
+            $table->integer('sum_id')->default(0);
             $table->timestamps();
         });
     }

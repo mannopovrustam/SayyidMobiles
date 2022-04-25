@@ -17,19 +17,20 @@
             </button>
 
             <!-- App Search-->
-            {{--<div class="app-search d-none d-lg-block">--}}
-                {{--<div class="position-relative">--}}
+            <div class="app-search d-none d-lg-block">
+                <div class="position-relative">
+                    <h5>Ombor::<d class="text-primary">{{ \Modules\Stock\Entities\Stock::find(session()->get('stock'))->name }}</d></h5>
                     {{--<input type="text" id="search" class="form-control form-control-sm" placeholder="Поиск..." autocomplete="off">--}}
                     {{--<span class="uil-search"></span>--}}
-                {{--</div>--}}
-                {{--<div class="position-absolute" id="poisk" style="display: none">--}}
-                    {{--<div class="card">--}}
-                        {{--<div class="card-body">--}}
-                            {{--<p id="search1"></p>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
+                </div>
+                <div class="position-absolute" id="poisk" style="display: none">
+                    <div class="card">
+                        <div class="card-body">
+                            <p id="search1"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="d-flex align-items-center">

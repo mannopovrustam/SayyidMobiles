@@ -19,7 +19,7 @@ class Product extends Model
     public function stock_id(){return $this->belongsTo(Stock::class);}
     public function user_id(){return $this->belongsTo(User::class);}
     public function shipment_id(){return $this->belongsTo(Shipment::class);}
-    public function invoice_id(){return $this->belongsTo(Invoice::class);}
+    public function invoices_id(){return $this->belongsTo(Invoice::class);}
     public function mark(){return $this->belongsTo(Mark::class);}
     public function order_id(){return $this->belongsTo(Order::class);}
 

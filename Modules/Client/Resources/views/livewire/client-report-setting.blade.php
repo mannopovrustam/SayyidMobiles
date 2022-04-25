@@ -69,7 +69,39 @@
                                         <td data-field="id" style="width: 80px">{{ $key+1 }}</td>
                                         <td data-field="stock">{{ \Modules\Stock\Entities\Stock::find($value['stock_id']) ? \Modules\Stock\Entities\Stock::find($value['stock_id'])->name : null }}</td>
                                         <td data-field="name">{{ isset($value['name']) ? $value['name'] : '' }}</td>
-                                        <td data-field="amount">{{ number_format($value['summ'], 1, '.', ' ') }}</td>
+                                        <td data-field="amount">
+                                            <?php
+                                            $sum = 0;
+                                            $main_currency = [];
+                                            $sum_id = \Modules\Client\Entities\ClientOperation::where('client_id', $value['id'])->pluck('sum_id')->toArray();
+                                            foreach ($sum_id as $sum_item) {
+                                                $main_currency[] = \Modules\Currency\Entities\Sum::find($sum_item)->sum_currency_id;
+                                            }
+                                            foreach(array_unique($main_currency) as $item){
+                                                $residue[$item] = 0;
+                                                foreach (\Modules\Client\Entities\ClientOperation::where('client_id', $value['id'])->get() as $cp){
+                                                    switch ($cp->operation){
+                                                        case 'Mahsulot(kirim)':
+                                                            $operation = -1;
+                                                            break;
+                                                        case 'Mahsulot(chiqim)':
+                                                            $operation = 1;
+                                                            break;
+                                                        case 'Pul(kirim)':
+                                                            $operation = -1;
+                                                            break;
+                                                        case 'Pul(chiqim)':
+                                                            $operation = 1;
+                                                            break;
+                                                    };
+                                                    $residue[$item] += $operation*sum($cp->sum_id)->sum_currency_pay;
+                                                    $residue[$item] -= $operation*sum($cp->sum_id)->sum_currency_pay_will;
+                                                }
+                                                echo number_format($residue[$item], 1).' '.currency($item)->currency;
+                                            }
+                                            ?>
+
+                                        </td>
                                         <td data-field="currency">{{ currency($value['main_currency_id']) ? currency($value['main_currency_id'])->currency : null }}</td>
                                         <td data-field="currency">
                                             @foreach(explode("|", $value['second_currency_id']) as $s_currency)

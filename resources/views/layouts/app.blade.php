@@ -71,7 +71,7 @@
                                         <button class="btn btn-sm btn-soft-default" style="position: absolute; left: 75%"
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span
-                                                    class="align-middle">Выход</span></button>
+                                                    class="align-middle">Chiqish</span></button>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}

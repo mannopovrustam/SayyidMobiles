@@ -10,6 +10,9 @@
                         <th>Invoice</th>
                         <th>Turi</th>
                         <th>Mijoz</th>
+                        <th>Ombor</th>
+                        <th>Soni</th>
+                        <th>Summasi</th>
                         <th>Sana</th>
                     </tr>
                     </thead>
@@ -27,6 +30,9 @@
                             <td><a href="/invoices/{{ $datum->id }}">{{ $datum->name }}</a></td>
                             <td>{{ $type }}</td>
                             <td>{{ $datum->client_id ? \Modules\Client\Entities\Client::find($datum->client_id)->name : '' }}</td>
+                            <td>{{ $datum->stock_id ? \Modules\Stock\Entities\Stock::find($datum->stock_id)->name : '' }}</td>
+                            <td>{{ $datum->products()->count() }}</td>
+                            <td>{{ array_sum($datum->products()->pluck('cost')->toArray()) }}</td>
                             <td>{{ $datum->created_at->format('d.m.Y -- H:i') }}</td>
                         </tr>
                     @endforeach

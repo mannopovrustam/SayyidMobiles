@@ -4,9 +4,11 @@ namespace Modules\Trade\Http\Livewire\Trade;
 
 use Livewire\Component;
 use Modules\Invoice\Entities\Expense;
+use Modules\Invoice\Entities\Invoice;
 use Modules\Mark\Entities\Mark;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\Shipment;
+use Modules\Stock\Entities\Stock;
 use Modules\Trade\Http\Traits\Orders;
 
 class Income extends Component
@@ -14,8 +16,9 @@ class Income extends Component
 
     public $modalFormVisible = true;
     public $searchTerm, $main_currency, $searchTermData, $stock_id, $products, $quantity = [], $price = [], $summ = [], $summ_single = [], $x_summ = [], $x_summ_single = [], $old_inputs = [], $inputs = [], $imei, $i = 1, $k = 1;
-    public $x_name = [], $x_price = [], $x_type = [], $x_note = [], $x_mark = [], $x_distribute = [];
+    public $x_name = [], $x_price = [], $x_type = [], $x_note = [], $x_mark = [], $x_distribute = [], $x_client = [];
     public $note, $data_id;
+    public $stocks  = [], $inputsearchstock = '', $stock_id_select;
 
     public function render()
     {
@@ -41,9 +44,7 @@ class Income extends Component
             $this->addProduct($id);
             $cart = session()->get('cart');
             if(!$cart) {
-                $cart = [
-                    $mark_id => ["id" => $mark_id]
-                ];
+                $cart = [ $mark_id => ["id" => $mark_id] ];
                 session()->put('cart', $cart);
             }
             $cart[$mark_id] = ["id" => $mark_id];
@@ -52,12 +53,29 @@ class Income extends Component
         }
         $this->searchTermData = $this->searchTerm ? Mark::where('name', 'like', "%{$this->searchTerm}%")->skip(0)->take(5)->get():[];
 
-        return view('trade::livewire.trade.income');
+        $searchstocks = [];
+        if(strlen($this->inputsearchstock)>=1){
+            $searchstocks = Stock::where('name', 'LIKE' , '%'.$this->inputsearchstock.'%')->take(5)->get();
+        }
+
+        return view('trade::livewire.trade.income')->with(['searchstocks' => $searchstocks]);
+    }
+
+    public function selectstock($stock_id)
+    {
+        $this->stock_id_select = $stock_id;
+        $this->inputsearchstock='';
+    }
+
+    public function clearSelectStock()
+    {
+        $this->stock_id_select = null;
     }
 
     public function old_invoice($id)
     {
         $expence = Expense::where('invoice_id', $id)->get();
+        $this->stock_id_select = Invoice::find($id)->stock_id;
         for ($m = 0; $m < count($expence); $m++){
             $this->i = $m;
             array_push($this->old_inputs, $m);
@@ -65,6 +83,7 @@ class Income extends Component
             $this->x_price[$m] = $expence[$m]['main_currency_pay'];
             $this->x_type[$m] = $expence[$m]['type'];
             $this->x_note[$m] = $expence[$m]['note'];
+            $this->x_client[$m] = $expence[$m]['client_id'];
             $this->x_mark[$m] = explode(',', $expence[$m]['mark_id']);
             $this->x_distribute[$m] = $expence[$m]['distribute'];
         }
@@ -165,6 +184,7 @@ class Income extends Component
         unset($this->x_type[$i]);
         unset($this->x_note[$i]);
         unset($this->x_mark[$i]);
+        unset($this->x_client[$i]);
         unset($this->x_distribute[$i]);
     }
 
@@ -175,6 +195,7 @@ class Income extends Component
         $this->x_type = '';
         $this->x_note = '';
         $this->x_mark = '';
+        $this->x_client = '';
         $this->x_distribute = '';
     }
 

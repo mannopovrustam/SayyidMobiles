@@ -22,15 +22,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 
-Route::get('artisan/{command}', function ($command){
+Route::get('artisan/{command}', function ($command) {
     $text = '';
-    foreach (explode('|', $command) as $item){
-        $text .= ' '.$item;
+    foreach (explode('|', $command) as $item) {
+        $text .= ' ' . $item;
     }
     \Artisan::call($text);
 });
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('roles', \App\Http\Controllers\RoleController::class);
     Route::resource('permissions', \App\Http\Controllers\PermissionController::class);

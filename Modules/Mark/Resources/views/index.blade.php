@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="mb-3 position-relative">
-                                        <label class="col-form-label-sm" for="validationTooltip02">Тип</label>
+                                        <label class="col-form-label-sm" for="validationTooltip02">Turi</label>
                                         <select class="form-select form-select-sm" name="type_id" id="validationTooltip02">
                                             @foreach(\Modules\Mark\Entities\Type::all() as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-3 position-relative">
-                                        <label class="col-form-label-sm" for="validationTooltip02">Бренд</label>
+                                        <label class="col-form-label-sm" for="validationTooltip02">Brend</label>
                                         <select class="form-select form-select-sm" name="brand_id" id="validationTooltip02">
                                             @foreach(\Modules\Mark\Entities\Brand::all() as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -55,8 +55,15 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="mb-3">
-                                        <label class="col-form-label-sm" for="validationCustom01">Название Марки</label>
+                                        <label class="col-form-label-sm" for="validationCustom01">Model nomi</label>
                                         <input type="text" class="form-control form-control-sm" name="name" id="validationCustom01"
+                                               placeholder="Название Марки">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="mb-3">
+                                        <label class="col-form-label-sm" for="validationCustom01">Versiya</label>
+                                        <input type="text" class="form-control form-control-sm" name="version" id="validationCustom01"
                                                placeholder="Название Марки">
                                     </div>
                                 </div>
@@ -89,12 +96,12 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Тип</th>
-                                    <th>Бренд</th>
-                                    <th>Название</th>
-                                    <th>Версия</th>
-                                    <th>Описание</th>
-                                    <th>Действие</th>
+                                    <th>Turi</th>
+                                    <th>Brend</th>
+                                    <th>Model nomi</th>
+                                    <th>Versiya</th>
+                                    <th>Ta'rif</th>
+                                    <th>Harakat</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -122,20 +129,24 @@
                                                         <input type="hidden" name="data_id" value="{{ $value->id }}">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="myModalLabel">Изменить
-                                                                    марку {{ $value->name }}</h5>
+                                                                <h5 class="modal-title" id="myModalLabel"><span class="text-primary">{{ $value->name }}</span> ni o'zgartirish</h5>
                                                                 <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal" aria-label="Close">
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="validationTooltip01">Название марки</label>
+                                                                    <label class="col-form-label-sm" for="validationTooltip01">Model nomi</label>
                                                                     <input type="text" name="name" class="form-control form-control-sm" value="{{ $value->name }}" id="validationTooltip01"
                                                                            placeholder="Название магазина" required>
                                                                 </div>
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="validationTooltip02">Тип</label>
+                                                                    <label class="col-form-label-sm" for="validationTooltip01">Versiya</label>
+                                                                    <input type="text" name="version" class="form-control form-control-sm" value="{{ $value->version }}" id="validationTooltip01"
+                                                                           placeholder="Название магазина" required>
+                                                                </div>
+                                                                <div class="mb-3 position-relative">
+                                                                    <label class="col-form-label-sm" for="validationTooltip02">Turi</label>
                                                                     <select class="form-select form-select-sm" name="type_id" id="validationTooltip02" required>
                                                                         @foreach(\Modules\Mark\Entities\Type::all() as $item)
                                                                             <option @if($item->id == $value->type_id) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
@@ -143,7 +154,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="mb-3 position-relative">
-                                                                    <label class="col-form-label-sm" for="validationTooltip02">Бренд</label>
+                                                                    <label class="col-form-label-sm" for="validationTooltip02">Brend</label>
                                                                     <select class="form-select form-select-sm" name="brand_id" id="validationTooltip02" required>
                                                                         @foreach(\Modules\Mark\Entities\Brand::all() as $item)
                                                                             <option @if($item->id == $value->brand_id) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
