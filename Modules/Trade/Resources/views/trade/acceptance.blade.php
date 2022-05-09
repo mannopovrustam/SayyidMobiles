@@ -295,11 +295,11 @@
                                                     <input type="hidden" name="status" value="0">
                                                     <button class="btn btn-danger"  type="submit">Bekor qilish</button>
                                                 @else
-                                                    @if($transfer->stock_to == auth()->user()->stock_id)
+                                                    @if($transfer->stock_to == session()->get('stock'))
                                                         <input type="hidden" name="status" value="1">
                                                         <button class="btn btn-success" type="submit">Qabul qilish</button>
                                                     @endif
-                                                    @if($transfer->stock_from == auth()->user()->stock_id)
+                                                    @if($transfer->stock_from == session()->get('stock'))
                                                         <h4 class="text-warning bg-soft-warning">Yo'lda</h4>
                                                     @endif
                                                 @endif

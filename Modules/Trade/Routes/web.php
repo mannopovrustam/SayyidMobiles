@@ -18,7 +18,7 @@ Route::resource('transfers', \Modules\Trade\Http\Controllers\TransferController:
 Route::get('/transfer_export/{id}', [\Modules\Trade\Http\Controllers\TransferController::class, 'export'])->middleware('auth');
 
 Route::get('/acceptances', function (){
-    $data = \Modules\Trade\Entities\Transfer::orderBy('created_at', 'desc')->where('stock_to', auth()->user()->stock_id)->get();
+    $data = \Modules\Trade\Entities\Transfer::orderBy('created_at', 'desc')->where('stock_to', session()->get('stock'))->get();
     return view('trade::transfer.acceptance', ['data' => $data]);
 });
 

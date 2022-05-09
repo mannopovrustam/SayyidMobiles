@@ -20,7 +20,7 @@ class TransferController extends Controller
 
     public function index()
     {
-        $data = \Modules\Trade\Entities\Transfer::orderBy('created_at', 'desc')->where('stock_from', session()->get('stock'))->get();
+        $data = Transfer::orderBy('created_at', 'desc')->where('stock_from', session()->get('stock'))->get();
         return view('trade::transfer.data', ['data' => $data]);
     }
 

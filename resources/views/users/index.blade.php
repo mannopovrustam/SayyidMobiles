@@ -20,7 +20,9 @@
                     </div>
                 @endif
 
-                <table class="table table-sm table-hover table-bordered table-striped table-nowrap align-middle overflow-auto" id="datatable">
+                <table class="table table-sm table-hover table-bordered table-striped table-nowrap align-middle"
+
+                       id="datatable">
                     <tr>
                         <th>No</th>
                         <th>Ism</th>
@@ -30,7 +32,7 @@
                     @foreach ($data as $key => $user)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $user->name }}</td>
+                            <td style="white-space: unset;">{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <a class="btn btn-sm btn-info" href="{{ route('users.show',$user->id) }}">Ko'rsatish</a>

@@ -14,6 +14,17 @@
     @stack('styles')
 </head>
 <body>
+
+<?php
+    if (auth()->check() && auth()->user()->stock_id){
+        if (!session()->get('stock')){
+            Session::put('stock', auth()->user()->stock_id);
+        }
+    }else{
+        Session::put('stock', 0);
+    }
+?>
+
 <div id="preloader">
     <div id="status">
         <div class="spinner">
