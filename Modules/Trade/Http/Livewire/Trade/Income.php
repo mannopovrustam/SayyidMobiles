@@ -64,6 +64,7 @@ class Income extends Component
     public function selectstock($stock_id)
     {
         $this->stock_id_select = $stock_id;
+        session()->put('stock', $stock_id);
         $this->inputsearchstock='';
     }
 

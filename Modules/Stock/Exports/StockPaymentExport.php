@@ -10,7 +10,7 @@ class StockPaymentExport implements FromView
 {
     public function view(): View
     {
-        return view('stock::stockpayments.export', [
+        return view('stock::stock_payment.export', [
             'stock_id' => session()->get('stock_id')
         ]);
     }

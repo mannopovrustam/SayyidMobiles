@@ -36,14 +36,12 @@
                                    wire:change="products()" wire:change="per_page()" value="{{ $end }}" placeholder="Sanagacha"/>
                         </div>
                     </th>
-                    <th>Qoldiq
-                        {{--<input type="text" name="residue" class="form-control form-control-sm"--}}
-                                      {{--wire:model="residue" wire:change="products()" wire:change="per_page()">--}}
-                    </th>
+                    <th>Qoldiq <input type="text" name="residue" class="form-control form-control-sm"
+                                      wire:model="residue" wire:change="products()" wire:change="per_page()"></th>
                     <th>Ombor valyutasi</th>
-                    <th>Kirim narxi</th>
-                    {{--<th>Narx</th>--}}
-                    {{--<th>Bonus</th>--}}
+                    <th>Hozirgi narx</th>
+                    <th>Narx</th>
+                    <th>Bonus</th>
                     <th>O'rtacha narx</th>
                 </tr>
             </form>
@@ -59,22 +57,23 @@
                     <td>{{ $all_product['sold'] }}</td>
                     <td>{{ $all_product['not_sold'] }}</td>
                     <td>{{ $all_product['stocks_currency'] }}</td>
-                    <td>{{ currency(1)->icon . ' ' . $all_product['cost'] }}</td>
-                    {{--<td>--}}
-                        {{--<?php $markId = $all_product['mark_id']; ?>--}}
-                        {{--<input type="hidden" wire:model="data_id.{{$markId}}" value="{{$data_id[$markId]}}">--}}
-                        {{--<input type="hidden" wire:model="price_type_id.{{$markId}}" value="{{$price_type_id[$markId]}}">--}}
-                        {{--<input type="hidden" wire:model="mark_id.{{$markId}}" value="{{$mark_id[$markId]}}">--}}
-                        {{--<input type="hidden" wire:model="main_currency_id.{{$markId}}"--}}
-                               {{--value="{{$main_currency_id[$markId]}}">--}}
-                        {{--<input type="hidden" wire:model="currency_id.{{$markId}}" value="{{$currency_id[$markId]}}">--}}
-                        {{--<input type="text" wire:model="price.{{$markId}}" style="width: 80px;height: 20px;" >--}}
-                    {{--</td>--}}
-                    {{--<td>--}}
-                        {{--<input type="text" wire:model="bonus.{{$markId}}" style="width: 80px;height: 20px;" >--}}
-                        {{--<i class="text-primary fa fa-save" style="cursor: pointer"--}}
-                           {{--wire:click="storeMark({{$markId}})"></i>--}}
-                    {{--</td>--}}
+                    <td>{{ currency(1)->icon . ' ' . $all_product['price'] }}</td>
+                    <td>
+                        <?php $markId = $all_product['mark_id']; ?>
+                        <input type="hidden" wire:model="data_id.{{$markId}}" value="{{$data_id[$markId]}}">
+                        <input type="hidden" wire:model="price_type_id.{{$markId}}" value="{{$price_type_id[$markId]}}">
+                        <input type="hidden" wire:model="mark_id.{{$markId}}" value="{{$mark_id[$markId]}}">
+                        <input type="hidden" wire:model="main_currency_id.{{$markId}}"
+                               value="{{$main_currency_id[$markId]}}">
+                        <input type="hidden" wire:model="currency_id.{{$markId}}" value="{{$currency_id[$markId]}}">
+                        <input type="text" wire:model="price.{{$markId}}" style="width: 80px;height: 20px;" >
+                    </td>
+                    <td>
+                        {{ isset($bonus[$markId]) ? $bonus[$markId] : null }}
+                        <input type="text" wire:model="bonus.{{$markId}}" style="width: 80px;height: 20px;">
+                        <i class="text-primary fa fa-save" style="cursor: pointer"
+                           wire:click="storeMark({{$markId}})"></i>
+                    </td>
                     <td>{{ $all_product['average'] }}</td>
                 </tr>
             @empty
@@ -84,7 +83,7 @@
             @endforelse
 
             <?php
-                session()->put('count_data', count($all_products))
+            session()->put('count_data', count($all_products))
             ?>
             @if($all_data->hasMorePages())
                 <tr>

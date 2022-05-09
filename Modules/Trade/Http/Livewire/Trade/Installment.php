@@ -21,6 +21,7 @@ class Installment extends Component
     public $remainder, $remainder_second;
     public $second_currency_pay_1 = [];
     public $pay;
+    public $stocks  = [], $inputsearchstock = '', $stock_id_select;
 
     public function mount()
     {
@@ -70,7 +71,23 @@ class Installment extends Component
         }else{
             $this->summ = $this->summ - (double)$this->discount;
         }
-        return view('trade::livewire.trade.installment');
+
+        $searchstocks = [];
+        if(strlen($this->inputsearchstock)>=1){
+            $searchstocks = Stock::where('name', 'LIKE' , '%'.$this->inputsearchstock.'%')->take(5)->get();
+        }
+
+        return view('trade::livewire.trade.installment')->with(['searchstocks' => $searchstocks]);
+    }
+    public function selectstock($stock_id)
+    {
+        $this->stock_id_select = $stock_id;
+        session()->put('stock', $stock_id);
+        $this->inputsearchstock='';
+    }
+    public function clearSelectStock()
+    {
+        $this->stock_id_select = null;
     }
 
     use Orders;

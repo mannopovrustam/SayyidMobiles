@@ -22,7 +22,7 @@ class StockPaymentController extends Controller
 
     public function index()
     {
-        return view('stock::stockpayments.index');
+        return view('stock::stock_payment.index');
     }
 
     /**

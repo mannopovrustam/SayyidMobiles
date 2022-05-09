@@ -41,6 +41,9 @@ class TransferController extends Controller
     public function store(Request $request)
     {
         $products = '';
+        if ($request->stock_id){
+            $request->stock_from = $request->stock_id;
+        }
 
         foreach ($request->mark_id as $key => $mark){
             if ($key !== array_key_first($request->mark_id)) {

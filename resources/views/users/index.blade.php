@@ -20,7 +20,7 @@
                     </div>
                 @endif
 
-                <table class="table table-sm table-hover table-bordered table-striped table-nowrap align-middle" id="datatable">
+                <table class="table table-sm table-hover table-bordered table-striped table-nowrap align-middle overflow-auto" id="datatable">
                     <tr>
                         <th>No</th>
                         <th>Ism</th>

@@ -36,6 +36,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('permissions', \App\Http\Controllers\PermissionController::class);
 });
 
+Route::get('test', function (){
+    return view('test');
+});
 //Route::get('test', function (){
 //    \Modules\Currency\Entities\Currency::create([
 //        'currency' => 'USD',

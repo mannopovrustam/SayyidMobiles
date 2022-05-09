@@ -61,7 +61,7 @@
                     $main_currency = [];
                     $sum_id = \Modules\Client\Entities\ClientOperation::where('client_id', $data->id)->pluck('sum_id')->toArray();
                     foreach ($sum_id as $sum_item) {
-                        $main_currency[] = \Modules\Currency\Entities\Sum::find($sum_item)->sum_currency_id;
+                        \Modules\Currency\Entities\Sum::find($sum_item) ? $main_currency[] = \Modules\Currency\Entities\Sum::find($sum_item)->sum_currency_id : 0;
                     }
 
                     ?>
@@ -70,6 +70,7 @@
 
                         <ul class="nav nav-tabs" role="tablist">
                             @foreach(array_unique($main_currency) as $item)
+                                @if(isset(currency($item)->currency))
                                 <li class="nav-item">
                                     <a class="nav-link @if($loop->first) active @endif" data-bs-toggle="tab"
                                        href="#main_currency-{{ $item }}" role="tab">
@@ -77,6 +78,7 @@
                                         <span class="d-none d-sm-block">{{ currency($item)->currency }}</span>
                                     </a>
                                 </li>
+                                @endif
                             @endforeach
                         </ul>
 
@@ -112,7 +114,7 @@
                                                         <td>{{sum($cp->sum_id)->main_currency_pay}}</td>
                                                         @foreach(\Modules\Currency\Entities\Currency::where('id', '!=', $item)->get() as $s_currency_e)
                                                             <td>
-                                                                @if(in_array($s_currency_e->id, $second_sum))
+                                                                @if(in_array($s_currency_e->id, $second_sum) && $cp->sum_id)
                                                                     <?php $sum_key = array_search($s_currency_e->id, $second_sum);?>
                                                                     {{ explode("|", sum($cp->sum_id)->second_currency_pay)[$sum_key] }}
                                                                 @endif
@@ -133,6 +135,9 @@
                                                                     case 'Pul(chiqim)':
                                                                         $operation = 1;
                                                                     break;
+                                                                    default:
+                                                                        $operation = $cp->type;
+
                                                                 };
                                                                 $residue[$item] += $operation*sum($cp->sum_id)->sum_currency_pay;
                                                                 $residue[$item] -= $operation*sum($cp->sum_id)->sum_currency_pay_will;

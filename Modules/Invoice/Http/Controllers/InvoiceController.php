@@ -58,6 +58,10 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
 
+//        foreach (Product::all() as $item){
+//            $item->update(['stock_id'=>15]);
+//        }
+
         if ($request->stock_id){
             session()->put('stock',$request->stock_id);
         }
@@ -89,7 +93,7 @@ class InvoiceController extends Controller
             "second_currency_pay" => implode("|",$second_currency_pay),
         ]);
 
-        $lastInvoice = Invoice::orderBy('created_at', 'desc')->first()->name;
+        $lastInvoice = isset(Invoice::orderBy('created_at', 'desc')->first()->name) ? Invoice::orderBy('created_at', 'desc')->first()->name : 'AA-0000000';
         $newInvoice = $this->generateInvoice($lastInvoice);
 
         $invoice = Invoice::updateOrCreate(['id' => $request['data_id']],[
@@ -125,7 +129,7 @@ class InvoiceController extends Controller
                 for ($i = 0; $i < $data->quantity; $i++) {
                     Product::create([
                         'stock_acc_id' => $request->stock_acc_id,
-                        'stock_id' => $request->stock_id,
+                        'stock_id' => $request->get('stock_id', $request->stock_acc_id),
                         'user_id' => auth()->id(),
                         'invoice_id' => $invoice->id,
                         'shipment_id' => $data->id,

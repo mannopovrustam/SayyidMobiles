@@ -28,7 +28,7 @@ class PriceTypeController extends Controller
      */
     public function create()
     {
-        return view('stock::pricetypes.create');
+        return view('stock::price_type.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class PriceTypeController extends Controller
     {
         $data = PriceType::find($id);
         $marks = Mark::all();
-        return view('stock::pricetypes.show', ['data' => $data, 'marks' => $marks]);
+        return view('stock::price_type.show', ['data' => $data, 'marks' => $marks]);
     }
 
     /**

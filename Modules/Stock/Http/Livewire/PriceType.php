@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Product\Http\Livewire\Product;
+namespace Modules\Stock\Http\Livewire;
 
 use Carbon\Carbon;
 use Livewire\Component;
@@ -13,26 +13,26 @@ use Modules\Product\Entities\Product;
 use Modules\Stock\Entities\Stock;
 use Modules\Stock\Entities\StockMark;
 
-class Data extends Component
+class PriceType extends Component
 {
     public $type, $brand, $invoice, $name, $residue, $all_products = [], $start, $end, $stock_id, $i = 0, $all_stocks;
-    public $data_id = [], $price_type_id = [], $mark_id = [], $main_currency_id = [], $price = [], $currency_id = [], $bonus = [];
+    public $data_id = [], $price_type_id = [], $price_type = [], $mark_id = [], $main_currency_id = [], $price = [], $currency_id = [], $bonus = [];
     public $perPage = 15, $count_data;
     protected $all_data = null, $listeners = [
         'load-more' => 'loadMore',
         'per-page' => 'per_page',
     ];
 
-    public function mount()
+    public function mount($id)
     {
+        $this->price_type = $id;
         $this->stock_id = null;
         $this->products();
     }
-
     public function render()
     {
         $this->products();
-        return view('product::livewire.product.data',
+        return view('stock::livewire.price-type',
             [
                 'stock' => $this->stock_id,
                 'residues' => $this->residue,
@@ -40,27 +40,28 @@ class Data extends Component
             ]);
     }
 
+
     public function products()
     {
         $this->all_data = [];
         $this->all_products = [];
-        $this->all_stocks = $this->stock_id ? Stock::where('id', $this->stock_id)->get() : Stock::all();
+        $this->all_stocks = $this->stock_id ? Stock::where('id', $this->stock_id)->get() : Stock::where('price_type_id', $this->price_type)->get();
 
-//        dd(Stock::find(12)->products);
+        $brnd = Brand::where('name', 'like', '%' . $this->brand . '%')->get();
 
         foreach ($this->all_stocks as $stocks) {
             foreach ($stocks->products->groupBy('mark_id') as $item) {
-                    $sm = StockMark::where([['mark_id', $item->first()->mark_id], ['price_type_id', $stocks->price_type_id]])->first();
-                    $cost = Product::where([['stock_id', $stocks->id], ['mark_id', $item->first()->mark_id], ['order_id', null], ['cost', '!=', null]])->get('cost');
-                    $average = 0;
-                    if (!$cost->isEmpty()) {
-                        $sumArray = [];
-                        foreach ($cost as $subArray) {
-                            $sumArray[] = (double)$subArray->cost;
-                        }
-                        $average = array_sum($sumArray) / count($sumArray);
+                $sm = StockMark::where([['mark_id', $item->first()->mark_id], ['price_type_id', $stocks->price_type_id]])->first();
+                $cost = Product::where([['stock_id', $stocks->id], ['mark_id', $item->first()->mark_id], ['order_id', null], ['cost', '!=', null]])->get('cost');
+                $average = 0;
+                if (!$cost->isEmpty()) {
+                    $sumArray = [];
+                    foreach ($cost as $subArray) {
+                        $sumArray[] = (double)$subArray->cost;
                     }
-                    $markId = $item->first()->mark->id;
+                    $average = array_sum($sumArray) / count($sumArray);
+                }
+                $markId = $item->first()->mark->id;
 
                 if (($this->brand ? stripos($item->first()->mark->brand->name, $this->brand) !== false : true)
                     && ($this->invoice ? stripos(Invoice::find($item->first()->invoice_id)->name, $this->invoice) !== false : true)
@@ -95,7 +96,6 @@ class Data extends Component
 
                     $this->all_products[$this->i]['stocks_currency'] = currency($stocks->main_currency_id)->currency;
                     $this->all_products[$this->i]['price'] = ($sm ? $sm->price : '');
-                    $this->all_products[$this->i]['cost'] = $cost[0]['cost'];
                     $this->all_products[$this->i]['average'] = round($average, 2);
 
                     $this->i++;

@@ -46,6 +46,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->stock_id){
+            session()->put('stock',$request->stock_id);
+        }
+
         $stock = Stock::find((int)session()->get('stock'));
         foreach ($request->second_currency_id as $second_currency_rate_for){
             $second_currency_rate[] = currency($second_currency_rate_for)->rate;

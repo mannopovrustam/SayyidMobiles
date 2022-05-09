@@ -75,7 +75,7 @@
                                             $main_currency = [];
                                             $sum_id = \Modules\Client\Entities\ClientOperation::where('client_id', $value['id'])->pluck('sum_id')->toArray();
                                             foreach ($sum_id as $sum_item) {
-                                                $main_currency[] = \Modules\Currency\Entities\Sum::find($sum_item)->sum_currency_id;
+                                                \Modules\Currency\Entities\Sum::find($sum_item) ? $main_currency[] = \Modules\Currency\Entities\Sum::find($sum_item)->sum_currency_id : null;
                                             }
                                             foreach(array_unique($main_currency) as $item){
                                                 $residue[$item] = 0;
@@ -94,8 +94,8 @@
                                                             $operation = 1;
                                                             break;
                                                     };
-                                                    $residue[$item] += $operation*sum($cp->sum_id)->sum_currency_pay;
-                                                    $residue[$item] -= $operation*sum($cp->sum_id)->sum_currency_pay_will;
+                                                    $residue[$item] += $operation*(isset(sum($cp->sum_id)->sum_currency_pay) ? sum($cp->sum_id)->sum_currency_pay : 0);
+                                                    $residue[$item] -= $operation*(isset(sum($cp->sum_id)->sum_currency_pay_will) ? sum($cp->sum_id)->sum_currency_pay_will : 0);
                                                 }
                                                 echo number_format($residue[$item], 1).' '.currency($item)->currency;
                                             }

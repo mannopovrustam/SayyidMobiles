@@ -61,7 +61,7 @@
 
                 if((int)$summ!=0){
                     if(currency($currency_id)){
-                        $sum_rate = (($sum_val   *     (intval(currency($currency_id)->rate))     ) / (int)$summ);
+                        $sum_rate = (($sum_val*(intval(currency($currency_id)->rate))) / (int)$summ);
                     }else{
                         $sum_rate = 0;
                     }

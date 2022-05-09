@@ -37,6 +37,7 @@ class Cash extends Component
             $currency_second;
 
     public $second_currency_pay_1 = [];
+    public $stocks  = [], $inputsearchstock = '', $stock_id_select;
 
     public function mount(){
         $this->stock_id = session()->get('stock');
@@ -81,7 +82,22 @@ class Cash extends Component
         }
         $this->sum_currency_pay_get = round($this->summ - $this->remainder, 5);
 
-        return view('trade::livewire.trade.cash');
+        $searchstocks = [];
+        if(strlen($this->inputsearchstock)>=1){
+            $searchstocks = Stock::where('name', 'LIKE' , '%'.$this->inputsearchstock.'%')->take(5)->get();
+        }
+
+        return view('trade::livewire.trade.cash')->with(['searchstocks' => $searchstocks]);
+    }
+    public function selectstock($stock_id)
+    {
+        $this->stock_id_select = $stock_id;
+        session()->put('stock', $stock_id);
+        $this->inputsearchstock='';
+    }
+    public function clearSelectStock()
+    {
+        $this->stock_id_select = null;
     }
 
     use Orders;
