@@ -291,14 +291,11 @@
                                                 @endforeach
                                             </div>
                                             <div class="mt-3 position-relative" style="float: right">
-                                                @if($transfer->status == 1)
-                                                    <input type="hidden" name="status" value="0">
-                                                    <button class="btn btn-danger"  type="submit">Bekor qilish</button>
+                                                @if($transfer->status == 0)
+                                                    {{--<input type="hidden" name="status" value="0">--}}
+                                                    <input class="btn btn-danger" type="submit" name="sts" value="Bekor qilish">
+                                                    <input class="btn btn-success" type="submit" name="sts" value="Qabul qilish">
                                                 @else
-                                                    @if($transfer->stock_to == session()->get('stock'))
-                                                        <input type="hidden" name="status" value="1">
-                                                        <button class="btn btn-success" type="submit">Qabul qilish</button>
-                                                    @endif
                                                     @if($transfer->stock_from == session()->get('stock'))
                                                         <h4 class="text-warning bg-soft-warning">Yo'lda</h4>
                                                     @endif

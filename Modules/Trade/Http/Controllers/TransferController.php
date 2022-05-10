@@ -58,6 +58,17 @@ class TransferController extends Controller
             }
         }
 
+        switch ($request->sts){
+            case 'Bekor qilish':
+                $request->status = 2;
+                break;
+            case 'Qabul qilish':
+                $request->status = 1;
+                break;
+            default:
+                $request->status = 0;
+        }
+
         $data = Transfer::updateOrCreate(['id' => $request->data_id], [
             'date' => $request->date,
             'name' => $request->get('name', Str::random(10)),
@@ -66,14 +77,26 @@ class TransferController extends Controller
             'marks' => implode(',', $request->mark_id),
             'products' => $products,
             'note' => $request->note,
-            'status' => $request->get('status', 0),
+            'status' => $request->status,
         ]);
 
+        if ($request->data_id){
+            foreach (explode(",", $products) as $product){
+                Product::find($product)->update(['stock_id' => $data->stock_from]);
+            }
+        }
+
+        if ($data->status == 0){
+            foreach (explode(",", $products) as $product){
+                Product::find($product)->update(['stock_id' => null]);
+            }
+        }
         if ($data->status == 1){
             foreach (explode(",", $products) as $product){
                 Product::find($product)->update(['stock_id' => $data->stock_to]);
             }
-        }else{
+        }
+        if ($data->status == 2){
             foreach (explode(",", $products) as $product){
                 Product::find($product)->update(['stock_id' => $data->stock_from]);
             }

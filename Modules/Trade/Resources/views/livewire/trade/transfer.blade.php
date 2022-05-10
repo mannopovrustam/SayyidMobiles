@@ -450,9 +450,36 @@
 
 
                                         </div>
+                                        @if($transfer)
                                         <div class="mt-3 position-relative" style="float: right">
-                                            <button class="btn btn-success" type="submit">Saqlash</button>
+                                            <div class="mt-3 position-relative" style="float: right">
+                                                <?php
+                                                switch($transfer->status){
+                                                    case 0:
+                                                        $status = 'Yo\'lda';
+                                                        $bg_color = 'bg-soft-warning';
+                                                        break;
+                                                    case 1:
+                                                        $status = 'Qabul qilindi';
+                                                        $bg_color = 'bg-soft-success';
+                                                        break;
+                                                    case 2:
+                                                        $status = 'Bekor qilindi';
+                                                        $bg_color = 'bg-soft-danger';
+                                                        break;
+                                                }
+                                                ?>
+
+
+                                                @if($transfer->status == 0)
+                                                    <button class="btn btn-success" type="submit">Saqlash</button>
+                                                @else
+                                                    <h4 class="text-warning {{ $bg_color }}">{{ $status }}</h4>
+                                                @endif
+                                            </div>
+
                                         </div>
+                                            @endif
                                     </div>
                                 </div>
                             </div>

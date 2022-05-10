@@ -48,14 +48,17 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
         ]);
 
-        $input = $request->all();
+        $input = Arr::except($request->all(), ['confirm-password', '_token']);
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+
+        Role::create([
+            'id' => $user->id,
+            'name' => $request->input('name')
+        ]);
 
         return redirect()->route('users.index')
             ->with('success','User created successfully');
@@ -102,9 +105,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         if ($request->has('permission')){
             Role::find($id)->syncPermissions($request->input('permission'));
         }
+        \Illuminate\Support\Facades\DB::table('model_has_roles')->where('role_id', $id)->updateOrInsert([
+            'role_id'=>$id,
+            'model_type' => User::class,
+            'model_id'=>$id
+        ]);
+
 
         $this->validate($request, [
             'name' => 'required',
@@ -114,6 +124,7 @@ class UserController extends Controller
         ]);
 
         $input = Arr::except($request->all(), ['confirm-password', 'roles']);
+
         if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
@@ -122,7 +133,11 @@ class UserController extends Controller
 
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+//        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        DB::table('model_has_roles')->create([
+            'model_type' => User::class,
+            'model_id'=>$id
+        ])->delete();
 
         return redirect()->route('users.index')
             ->with('success','User updated successfully');
